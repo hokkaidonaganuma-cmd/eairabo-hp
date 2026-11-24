@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>おちゃくみ名人</title>
+<style>
+:root{--bg:#fff3e8;--ink:#4a3428;--accent:#ff8a3d;--accentD:#d4621a;--red:#e8505b;--panel:#ffffff;--line:#ffc9a8;--tea:#7fa33a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2e2633;--ink:#fbeff0;--panel:#3d3343;--line:#6a5470}}
+:root[data-theme="dark"]{--bg:#2e2633;--ink:#fbeff0;--panel:#3d3343;--line:#6a5470}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+html,body{height:100%;overflow:hidden;background:var(--bg) radial-gradient(circle,rgba(255,170,120,.18) 3px,transparent 4px) 0 0/34px 34px;color:var(--ink);font-family:"Hiragino Maru Gothic ProN","Rounded Mplus 1c","Yu Gothic",sans-serif}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;max-width:480px;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px 6px;font-weight:700;font-size:15px;gap:8px}
+header .lives{letter-spacing:2px;font-size:18px;white-space:nowrap}
+#stageWrap{flex:1;position:relative;min-height:0}
+canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+#msg{position:absolute;left:0;right:0;top:58px;padding:0 10px;text-align:center;font-size:24px;font-weight:900;pointer-events:none;text-shadow:0 2px 0 var(--bg),0 -2px 0 var(--bg),2px 0 0 var(--bg),-2px 0 0 var(--bg);min-height:34px}
+#hint{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:14px;opacity:.75;pointer-events:none}
+#ad{height:56px;flex:0 0 56px;border-top:2px dashed var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;opacity:.7;background:var(--panel)}
+.ov{position:absolute;inset:0;background:var(--bg) radial-gradient(circle,rgba(255,170,120,.18) 3px,transparent 4px) 0 0/34px 34px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 22px;text-align:center;z-index:5;gap:14px}
+.ov[hidden]{display:none}
+.ov h1{font-size:40px;letter-spacing:3px;line-height:1.2;color:var(--accentD)}
+.ov h1 rt{font-size:13px;letter-spacing:0}
+.ov h1 small{display:block;font-size:14px;letter-spacing:1px;margin-bottom:6px;opacity:.7}
+.ov h2{font-size:30px}
+.card{background:var(--panel);border:3px solid var(--line);border-radius:20px;padding:12px 16px;font-size:15px;line-height:1.8;text-align:left;max-width:340px;width:100%}
+.btn{font:inherit;font-weight:900;font-size:24px;background:var(--accent);color:#fff;border:none;border-radius:40px;padding:16px 50px;box-shadow:0 5px 0 var(--accentD);cursor:pointer}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--accentD)}
+.btn.sub{background:transparent;color:var(--ink);border:2px solid var(--line);box-shadow:none;font-size:15px;padding:8px 24px}
+.big{font-size:52px;font-weight:900;color:var(--accentD)}
+.rank{font-size:22px;font-weight:900}
+.best{font-size:13px;opacity:.75}
+.ov svg{flex:0 0 auto}
+@media (max-height:680px){.ov{gap:8px}.ov svg{width:96px;height:80px}.card{line-height:1.6}}
+#snd{position:absolute;right:10px;top:8px;z-index:6;width:42px;height:42px;border-radius:50%;border:2px solid var(--line);background:var(--panel);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div id="app">
+ <header><span id="hScore">0てん</span><span id="hCup">1 / 10はい</span><span class="lives" id="hLives">❤️❤️❤️</span></header>
+ <div id="stageWrap">
+  <canvas id="cv"></canvas>
+  <button id="snd" aria-label="おとの オン・オフ">🔊</button>
+  <div id="msg"></div>
+  <div id="hint">ながおしで おちゃを いれるよ・はなすと とまるよ</div>
+
+  <div class="ov" id="title">
+   <svg width="150" height="125" viewBox="0 0 120 100" aria-hidden="true">
+    <path d="M30 30 h60 l-6 56 q-2 10 -12 10 h-24 q-10 0 -12 -10 z" fill="#ffe9f0" stroke="#e87a8a" stroke-width="3"/>
+    <path d="M33 52 h54 l-3.6 34 q-1.6 7 -9 7 h-28.8 q-7.4 0 -9 -7 z" fill="#7fa33a"/>
+    <path d="M44 22 q4 -10 0 -18 M60 22 q4 -10 0 -18 M76 22 q4 -10 0 -18" stroke="#ffb08a" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="50" cy="68" r="4" fill="#4a3428"/><circle cx="70" cy="68" r="4" fill="#4a3428"/>
+    <circle cx="43" cy="76" r="4" fill="#ff9aa8" opacity=".8"/><circle cx="77" cy="76" r="4" fill="#ff9aa8" opacity=".8"/>
+    <path d="M54 75 q6 6 12 0" stroke="#4a3428" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+   </svg>
+   <h1><small>ぴったり いれて めざせ めいじん！</small>おちゃくみ<ruby>名人<rt>めいじん</rt></ruby></h1>
+   <div class="card">
+    <b>あそびかた</b><br>
+    ・がめんを <b>ながおし</b> すると、きゅうすくんが おちゃを いれるよ<br>
+    ・ゆびを <b>はなす</b> と とまるよ。<b>きいろい せん</b>に ぴったり あわせてね<br>
+    ・あふれちゃうと ❤️ が へるよ（3つ なくなったら おしまい）<br>
+    ・10ぱい いれたら クリア！<br>
+    ・みぎうえの 🔊 で おとを けせるよ
+   </div>
+   <button class="btn" id="startBtn">あそぶ！</button>
+   <div class="best" id="bestT"></div>
+  </div>
+
+  <div class="ov" id="end" hidden>
+   <h2 id="endH">おしまい</h2>
+   <div class="big" id="endScore">0てん</div>
+   <div class="rank" id="endRank"></div>
+   <div class="card" id="endDetail"></div>
+   <button class="btn" id="retryBtn">もういっかい</button>
+   <button class="btn sub" id="toTitle">さいしょへ</button>
+  </div>
+ </div>
+</div>
+<script>
+(()=>{
+const cv=document.getElementById("cv"),ctx=cv.getContext("2d");
+const $=id=>document.getElementById(id);
+const CUPS=[
+ {nm:"ゆのみちゃん",top:.46,bot:.36,h:.50,col:"#ffe9f0",rim:"#e87a8a"},
+ {nm:"ちびゆのみくん",top:.40,bot:.32,h:.38,col:"#e3f1ff",rim:"#5a8ad8"},
+ {nm:"ひらたい おちゃわんさん",top:.66,bot:.32,h:.32,col:"#fff6d6",rim:"#e0a420"},
+ {nm:"のっぽゆのみくん",top:.36,bot:.32,h:.60,col:"#e6f8e6",rim:"#4caf6a"},
+ {nm:"おおきい ゆのみさん",top:.58,bot:.50,h:.52,col:"#f1e6ff",rim:"#9a6ad8"}
+];
+const TOTAL=10;
+
+/* ===== ポンコツ楽団（WebAudioで自作BGM・効果音） ===== */
+let AC=null,master=null,bgmOn=true,bgmTimer=null,nextT=0,step=0;
+try{bgmOn=localStorage.getItem("ochakumi-bgm")!=="off"}catch(e){}
+function ensureAudio(){
+ try{
+  if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return false;AC=new C();master=AC.createGain();master.gain.value=.3;master.connect(AC.destination)}
+  if(AC.state==="suspended")AC.resume();
+  return true;
+ }catch(e){return false}
+}
+function tone(freq,t,dur,type,vol,o={}){
+ const os=AC.createOscillator(),g=AC.createGain();
+ os.type=type;os.frequency.setValueAtTime(freq,t);
+ if(o.to)os.frequency.exponentialRampToValueAtTime(o.to,t+dur);
+ if(o.detune)os.detune.setValueAtTime(o.detune,t);
+ if(o.vib){const l=AC.createOscillator(),lg=AC.createGain();l.frequency.value=o.vib;lg.gain.value=freq*(o.vd||.025);l.connect(lg);lg.connect(os.frequency);l.start(t);l.stop(t+dur+.05)}
+ g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.012);g.gain.exponentialRampToValueAtTime(.0008,t+dur);
+ os.connect(g);g.connect(master);os.start(t);os.stop(t+dur+.05);
+}
+function hiss(t,dur,vol,f){
+ const n=Math.floor(AC.sampleRate*dur),b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);
+ for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+ const s=AC.createBufferSource(),fl=AC.createBiquadFilter(),g=AC.createGain();
+ s.buffer=b;fl.type="bandpass";fl.frequency.value=f||2500;g.gain.value=vol;
+ s.connect(fl);fl.connect(g);g.connect(master);s.start(t);
+}
+const hz=(base,semi)=>base*Math.pow(2,semi/12);
+const C3=130.81,C4=261.63,C5=523.25;
+// メロディ（8分音符×32、C5からの半音。null=休み）
+const MEL=[0,null,4,null,7,4,null,0, 2,null,4,2,0,null,-5,null, 5,null,9,null,12,9,null,5, 7,null,5,4,2,null,null,null];
+const ROOT=[0,0,5,7];             // C C F G
+const CH=[[4,7],[4,7],[9,12],[11,14]];
+function playStep(s,t,sd){
+ const bar=Math.floor(s/8),b=s%8,r=ROOT[bar];
+ // ブンチャッ（チューバ風ベース＋あと打ち）
+ if(b===0||b===4)tone(hz(C3,r+(b===4?-5:0)),t,sd*1.6,"triangle",.5,{to:hz(C3,r+(b===4?-5:0))*.97});
+ if(b===2||b===6)CH[bar].forEach(c=>tone(hz(C4,c),t,sd*.6,"square",.06));
+ // ポコッ（木魚）と チッ（ハイハット）
+ if(b===3||b===7)tone(820,t,.07,"sine",.25,{to:500});
+ if(b%2===1)hiss(t,.04,.12,6000);
+ // メロディ（おもちゃピアノ風。ときどき音がはずれるポンコツ仕様）
+ const m=MEL[s];
+ if(m!==null){
+  const off=Math.random()<.12?(Math.random()<.5?-55:60):0;
+  tone(hz(C5,m),t,sd*1.2,"square",.05,{detune:off});            // おもちゃピアノ
+  tone(hz(C5,m+12),t,sd*2,"sine",.06,{detune:off});              // オルゴールの重ね
+ }
+ // 4小節目のおわりにスライドホイッスル「ひゅ〜〜ん」
+ if(s===29)tone(1300,t,sd*2.6,"sine",.16,{to:420});
+ // まれに「プスッ」
+ if(s===13&&Math.random()<.5)hiss(t,.12,.25,400);
+}
+function bgmTempo(){const r=(st&&st.round)||0;return 112+r*3+(st&&st.accel&&st.phase==="pour"?10:0)}
+function startBGM(){
+ if(!bgmOn||!ensureAudio()||bgmTimer)return;
+ nextT=AC.currentTime+.06;step=0;
+ bgmTimer=setInterval(()=>{
+  const sd=60/bgmTempo()/2;
+  while(nextT<AC.currentTime+.15){playStep(step,nextT,sd);nextT+=sd;step=(step+1)%32}
+ },25);
+}
+function stopBGM(){if(bgmTimer){clearInterval(bgmTimer);bgmTimer=null}}
+function sfx(kind){
+ if(!bgmOn||!AC)return;const t=AC.currentTime+.02;
+ if(kind==="great"){[0,4,7,12].forEach((n,i)=>tone(hz(C5,n),t+i*.06,.18,"square",.09))}
+ else if(kind==="ok"){tone(hz(C5,7),t,.15,"square",.08);tone(hz(C5,12),t+.08,.18,"square",.08)}
+ else if(kind==="miss"){tone(420,t,.4,"triangle",.14,{to:180});tone(300,t+.18,.35,"triangle",.1,{to:150})}
+ else if(kind==="clear"){[0,4,7,12,7,12].forEach((n,i)=>tone(hz(C5,n),t+i*.12,i===5?.6:.16,"sawtooth",.08,{vib:6,detune:i===4?-50:0}))}
+ else if(kind==="over"){[7,6,5,4].forEach((n,i)=>tone(hz(C4,n),t+i*.38,i===3?1.2:.34,"sawtooth",.1,{vib:i===3?7:0,vd:.03}))}
+}
+function drawSnd(){$("snd").textContent=bgmOn?"🔊":"🔇"}
+$("snd").addEventListener("click",e=>{
+ e.stopPropagation();bgmOn=!bgmOn;try{localStorage.setItem("ochakumi-bgm",bgmOn?"on":"off")}catch(_){}
+ drawSnd();
+ if(bgmOn){if(st&&st.cup&&st.phase!=="end")startBGM();else ensureAudio()}else stopBGM();
+});
+$("snd").addEventListener("pointerdown",e=>e.stopPropagation());
+document.addEventListener("visibilitychange",()=>{if(!AC)return;try{document.hidden?AC.suspend():AC.resume()}catch(e){}});
+drawSnd();
+
+let W=0,H=0,dpr=1;
+function resize(){const r=cv.getBoundingClientRect();dpr=Math.min(2,window.devicePixelRatio||1);W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+addEventListener("resize",resize);
+
+let st={};
+let best=0;try{best=+localStorage.getItem("ochakumi-best")||0}catch(e){}
+function showBest(){$("bestT").textContent=best?`いままでの さいこう：${best}てん`:""}
+showBest();
+
+function newRound(){
+ const i=st.round;
+ const c=CUPS[(i*3+st.seed)%CUPS.length];
+ st.cup=c;
+ st.level=0;            // 0..1 (cup volume fraction by height)
+ st.target=.45+Math.random()*.38;
+ st.tol=Math.max(.06,.12-i*.006);
+ st.speed=.24+i*.03;    // height per second（こども向けにゆっくり）
+ st.accel=i>=6;         // 7はいめから すこし加速
+ st.face="normal";st.faceT=0;
+ st.pourT=0;st.pouring=false;st.done=false;st.residual=0;
+ st.phase="ready";
+ $("hCup").textContent=`${i+1} / ${TOTAL}はい`;
+ $("msg").textContent=`${i+1}はいめ：${c.nm}`;
+ $("hint").textContent=st.accel?"きゅうすくん ノリノリ！だんだん はやくなるよ":"ながおしで おちゃを いれるよ・はなすと とまるよ";
+}
+function start(){
+ st={round:0,score:0,lives:3,seed:Math.floor(Math.random()*5),parts:[],stars:[],shake:0,stamp:0,results:[]};
+ $("title").hidden=true;$("end").hidden=true;
+ updHud();newRound();
+ stopBGM();startBGM();
+}
+function updHud(){$("hScore").textContent=st.score+"てん";$("hLives").textContent="❤️".repeat(st.lives)+"🤍".repeat(3-st.lives)}
+
+function press(){if(st.phase==="ready"){st.phase="pour";st.pouring=true;st.face="pour";$("msg").textContent=""}}
+function release(){if(st.phase==="pour"){st.pouring=false;st.phase="settle";st.residual=.012+st.speed*.02;st.settleT=.35}}
+cv.addEventListener("pointerdown",e=>{e.preventDefault();press()});
+addEventListener("pointerup",release);addEventListener("pointercancel",release);
+
+function judge(){
+ const d=Math.abs(st.level-st.target);let pts=0,txt="",ok=true;
+ let lose=false;
+ if(st.level>=1){txt="あふれちゃった〜！";ok=false;lose=true;st.shake=.4;st.face="sad"}
+ else if(d<=st.tol*.4){pts=100;txt="はなまる！ぴったり！";st.face="great";st.stamp=1.2;burst()}
+ else if(d<=st.tol){pts=60;txt="じょうず！";st.face="great"}
+ else if(d<=st.tol*2.2){pts=20;txt="おしい！もうちょっと";st.face="normal"}
+ else if(st.level<st.target){pts=10;txt="ちょっと たりないね";st.face="normal"}
+ else{txt="いれすぎ〜！";ok=false;lose=true;st.shake=.3;st.face="sad"}
+ if(ok&&st.accel)pts=Math.round(pts*1.2);
+ st.score+=pts;if(lose)st.lives--;
+ st.results.push(pts);
+ sfx(!ok?"miss":pts>=100?"great":"ok");
+ $("msg").textContent=txt+(pts?` +${pts}`:"");
+ updHud();
+ st.phase="result";
+ setTimeout(()=>{
+  if(st.lives<=0){finish(false);return}
+  st.round++;
+  if(st.round>=TOTAL){finish(true);return}
+  newRound();
+ },1300);
+}
+function finish(clear){
+ st.phase="end";
+ stopBGM();sfx(clear?"clear":"over");
+ $("endH").textContent=clear?"🎉 10ぱい いれたね！":"❤️が なくなっちゃった";
+ $("endScore").textContent=st.score+"てん";
+ const s=st.score;
+ $("endRank").textContent=!clear?"もういっかい ちょうせん しよう！":s>=900?"💮 はなまる めいじん！":s>=650?"⭐ すごい めいじん！":s>=400?"🌱 がんばったで しょう":"🍵 はじめの いっぽ しょう";
+ const nice=st.results.filter(p=>p>=100).length;
+ $("endDetail").innerHTML=`いれた おちゃ：${st.results.length}はい<br>はなまる：${"💮".repeat(nice)||"なし"}<br>${clear?"クリア おめでとう！":"あふれないように ゆっくりね"}`;
+ if(s>best){best=s;try{localStorage.setItem("ochakumi-best",best)}catch(e){};$("endDetail").innerHTML+="<br><b>さいこう きろく こうしん！</b>"}
+ $("end").hidden=false;
+}
+$("startBtn").onclick=start;$("retryBtn").onclick=start;
+$("toTitle").onclick=()=>{stopBGM();$("end").hidden=true;$("title").hidden=false;showBest();st={}};
+
+// 描画
+function geom(){
+ const c=st.cup,base=Math.min(W,H*0.8);
+ const tw=c.top*base,bw=c.bot*base,ch=c.h*base;
+ const cx=W/2,by=H*.88,ty=by-ch;
+ return{cx,by,ty,tw,bw,ch};
+}
+function cupPath(g,inset){
+ const t=inset||0;
+ ctx.beginPath();
+ ctx.moveTo(g.cx-g.tw/2+t,g.ty);
+ ctx.lineTo(g.cx+g.tw/2-t,g.ty);
+ ctx.lineTo(g.cx+g.bw/2-t,g.by-t);
+ ctx.lineTo(g.cx-g.bw/2+t,g.by-t);
+ ctx.closePath();
+}
+function draw(dt){
+ ctx.clearRect(0,0,W,H);
+ if(!st.cup)return;
+ const g=geom();
+ let sx=0;if(st.shake>0){st.shake-=dt;sx=Math.sin(performance.now()/25)*6}
+ ctx.save();ctx.translate(sx,0);
+ // table
+ ctx.fillStyle="#ffd2a8";ctx.fillRect(-20,g.by,W+40,H-g.by);
+ ctx.fillStyle="#f4b183";ctx.fillRect(-20,g.by,W+40,6);
+ ctx.fillStyle="rgba(255,255,255,.5)";for(let x=-10;x<W+20;x+=28){ctx.beginPath();ctx.arc(x,g.by+22,4,0,Math.PI*2);ctx.fill()}
+ // kyusu (teapot) — original simple shape
+ const kx=g.cx-g.tw*.15-60,ky=Math.max(40,g.ty-120);
+ const tilt=st.pouring?.5:.15;
+ ctx.save();ctx.translate(kx,ky+30);ctx.rotate(tilt);
+ ctx.fillStyle="#7cc46a";ctx.strokeStyle="#3f8a3a";ctx.lineWidth=3;
+ ctx.beginPath();ctx.ellipse(0,0,46,34,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+ ctx.beginPath();ctx.moveTo(40,-6);ctx.quadraticCurveTo(70,-10,82,-28);ctx.lineTo(86,-22);ctx.quadraticCurveTo(74,4,42,10);ctx.closePath();ctx.fill();ctx.stroke();
+ ctx.fillStyle="#3f8a3a";ctx.fillRect(-16,-42,32,10);ctx.beginPath();ctx.arc(0,-44,6,0,Math.PI*2);ctx.fill();
+ ctx.strokeStyle="#3f8a3a";ctx.lineWidth=7;ctx.beginPath();ctx.arc(-46,0,18,Math.PI*.5,Math.PI*1.5);ctx.stroke();
+ ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(-14,-4,4,0,Math.PI*2);ctx.arc(14,-4,4,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle="#2b1d12";ctx.beginPath();ctx.arc(-14,-4,2,0,Math.PI*2);ctx.arc(14,-4,2,0,Math.PI*2);ctx.fill();
+ ctx.strokeStyle="#2b1d12";ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,6,7,.2,Math.PI-.2);ctx.stroke();
+ ctx.fillStyle="rgba(255,140,160,.7)";ctx.beginPath();ctx.arc(-24,6,5,0,Math.PI*2);ctx.arc(24,6,5,0,Math.PI*2);ctx.fill();
+ // spout tip world position
+ const tipLocal={x:84,y:-25};
+ ctx.restore();
+ const ca=Math.cos(tilt),sa=Math.sin(tilt);
+ const tipX=kx+tipLocal.x*ca-tipLocal.y*sa,tipY=ky+30+tipLocal.x*sa+tipLocal.y*ca;
+ // stream
+ const surfY=g.by-(g.by-g.ty)*Math.min(1,st.level);
+ if(st.pouring||(st.phase==="settle"&&st.settleT>.2)){
+  ctx.strokeStyle="rgba(127,163,58,.9)";ctx.lineWidth=st.pouring?7:4;ctx.lineCap="round";
+  ctx.beginPath();ctx.moveTo(tipX,tipY);ctx.quadraticCurveTo(g.cx+6,tipY+10,g.cx,surfY);ctx.stroke();
+ }
+ // cup body back
+ ctx.fillStyle=st.cup.col;cupPath(g,-6);ctx.fill();
+ // tea
+ ctx.save();cupPath(g,4);ctx.clip();
+ const ly=g.by-(g.by-g.ty)*Math.min(1,st.level);
+ const grd=ctx.createLinearGradient(0,ly,0,g.by);grd.addColorStop(0,"#9cbd4e");grd.addColorStop(1,"#5f8a2a");
+ ctx.fillStyle=grd;
+ ctx.beginPath();ctx.moveTo(0,ly);
+ for(let x=0;x<=W;x+=8){ctx.lineTo(x,ly+Math.sin(x/12+performance.now()/180)*(st.pouring?2.5:1))}
+ ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+ ctx.restore();
+ // inner rim shade
+ ctx.strokeStyle=st.cup.rim;ctx.lineWidth=5;cupPath(g,-3);ctx.stroke();
+ // target band
+ const tY=g.by-(g.by-g.ty)*st.target,band=(g.by-g.ty)*st.tol;
+ ctx.fillStyle="rgba(230,180,40,.22)";ctx.fillRect(g.cx-g.tw/2-14,tY-band,g.tw+28,band*2);
+ ctx.strokeStyle="#d9a21a";ctx.lineWidth=3;ctx.setLineDash([8,5]);
+ ctx.beginPath();ctx.moveTo(g.cx-g.tw/2-18,tY);ctx.lineTo(g.cx+g.tw/2+18,tY);ctx.stroke();ctx.setLineDash([]);
+ ctx.fillStyle="#b07e0a";ctx.font="bold 13px sans-serif";ctx.textAlign="left";ctx.textBaseline="middle";
+ const lx=g.cx+g.tw/2+22;ctx.fillText(lx+40<W?"ここ！":"",lx,tY);
+ // overflow drops
+ if(st.level>=1){for(let i=0;i<4;i++){st.parts.push({x:g.cx+(Math.random()-.5)*g.tw,y:g.ty,vx:(Math.random()-.5)*120,vy:-60-Math.random()*60,life:.8})}}
+ ctx.fillStyle="#7fa33a";
+ st.parts=st.parts.filter(p=>(p.life-=dt)>0);
+ st.parts.forEach(p=>{p.vy+=500*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill()});
+ // ゆのみの かお
+ drawFace(g,dt);
+ // きらきら星
+ st.stars=st.stars.filter(p=>(p.life-=dt)>0);
+ st.stars.forEach(p=>{p.vy+=260*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;star(p.x,p.y,p.r,p.c,p.life)});
+ // はなまる
+ if(st.stamp>0){st.stamp-=dt;hanamaru(Math.min(W-50,g.cx+g.tw/2),Math.max(60,g.ty-40),.8*Math.min(1,(1.2-st.stamp)*6))}
+ // steam
+ ctx.strokeStyle="rgba(150,130,100,.35)";ctx.lineWidth=3;
+ for(let k=-1;k<=1;k++){const x=g.cx+k*g.tw*.25,t=performance.now()/600+k;ctx.beginPath();ctx.moveTo(x,g.ty-8);ctx.quadraticCurveTo(x+Math.sin(t)*10,g.ty-24,x,g.ty-40);ctx.stroke()}
+ ctx.restore();
+}
+function drawFace(g,dt){
+ const y=g.by-g.ch*.24,dx=Math.max(12,g.bw*.18),f=st.face||"normal";
+ ctx.save();ctx.strokeStyle="#4a3428";ctx.fillStyle="#4a3428";ctx.lineWidth=3;ctx.lineCap="round";
+ if(f==="great"){ // にっこり目
+  [-1,1].forEach(k=>{ctx.beginPath();ctx.arc(g.cx+k*dx,y+3,6,Math.PI*1.1,Math.PI*1.9);ctx.stroke()});
+ }else if(f==="sad"){
+  [-1,1].forEach(k=>{ctx.beginPath();ctx.moveTo(g.cx+k*dx+k*7,y-3);ctx.lineTo(g.cx+k*dx-k*5,y-9);ctx.stroke();ctx.beginPath();ctx.arc(g.cx+k*dx,y+3,3,0,Math.PI*2);ctx.fill()});
+ }else{
+  [-1,1].forEach(k=>{ctx.beginPath();ctx.arc(g.cx+k*dx,y,4.5,0,Math.PI*2);ctx.fill();ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(g.cx+k*dx+1.5,y-1.5,1.5,0,Math.PI*2);ctx.fill();ctx.fillStyle="#4a3428"});
+ }
+ // ほっぺ
+ ctx.fillStyle="rgba(255,140,160,.65)";[-1,1].forEach(k=>{ctx.beginPath();ctx.ellipse(g.cx+k*(dx+10),y+10,6,4,0,0,Math.PI*2);ctx.fill()});
+ // くち
+ ctx.beginPath();
+ if(f==="pour"){ctx.fillStyle="#4a3428";ctx.ellipse(g.cx,y+12,4,5,0,0,Math.PI*2);ctx.fill()}
+ else if(f==="sad"){ctx.arc(g.cx,y+18,6,Math.PI*1.15,Math.PI*1.85);ctx.stroke()}
+ else{ctx.arc(g.cx,y+8,7,.2,Math.PI-.2);ctx.stroke()}
+ ctx.restore();
+}
+function star(x,y,r,c,a){
+ ctx.save();ctx.globalAlpha=Math.min(1,a*2);ctx.fillStyle=c;ctx.beginPath();
+ for(let i=0;i<10;i++){const rr=i%2?r*.45:r,an=-Math.PI/2+i*Math.PI/5;ctx.lineTo(x+Math.cos(an)*rr,y+Math.sin(an)*rr)}
+ ctx.closePath();ctx.fill();ctx.restore();
+}
+function burst(){
+ const g=geom(),cols=["#ffd23f","#ff7aa2","#6ec6ff","#8be38b","#ffa94d"];
+ for(let i=0;i<22;i++)st.stars.push({x:g.cx,y:g.ty,vx:(Math.random()-.5)*320,vy:-160-Math.random()*220,r:5+Math.random()*6,c:cols[i%5],life:1+Math.random()*.4});
+}
+function hanamaru(x,y,k){
+ ctx.save();ctx.translate(x,y);ctx.scale(k,k);ctx.rotate(-.2);
+ ctx.strokeStyle="#e8505b";ctx.lineWidth=4;ctx.lineCap="round";
+ ctx.beginPath();for(let a=0;a<Math.PI*2*3.2;a+=.15){const r=8+a*1.6;ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r*.8)}ctx.stroke();
+ for(let i=0;i<8;i++){const an=i*Math.PI/4;ctx.beginPath();ctx.ellipse(Math.cos(an)*44,Math.sin(an)*36,10,6,an,0,Math.PI*2);ctx.stroke()}
+ ctx.restore();
+}
+let last=performance.now();
+function loop(now){
+ const dt=Math.min(.05,(now-last)/1000);last=now;
+ if(st.cup){
+  if(st.phase==="pour"){
+   st.pourT+=dt;
+   const sp=st.speed*(st.accel?1+st.pourT*.5:1);
+   st.level+=sp*dt;
+   if(st.level>=1){st.level=1;st.pouring=false;st.phase="judge";judge()}
+  }else if(st.phase==="settle"){
+   const add=Math.min(st.residual,st.residual*dt*6+0.0005);st.level+=add;st.residual-=add;
+   st.settleT-=dt;
+   if(st.level>=1){st.level=1}
+   if(st.settleT<=0){st.phase="judge";judge()}
+  }
+ }
+ draw(dt);
+ requestAnimationFrame(loop);
+}
+resize();requestAnimationFrame(loop);
+window.__game={get st(){return st},press,release,start};
+})();
+</script>
+</body>
+</html>
+

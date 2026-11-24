@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>まだ呑んでないプレミア酒</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E9ECEA; --sheet:#F7F8F6; --ink:#1D2F4A; --ink2:#55647A; --line:#C9D0D3;
+  --shu:#C33A2C; --shu-soft:#F3DCD7; --gold:#A57C25;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C28; --sheet:#1C2635; --ink:#E6E9EE; --ink2:#9AA7B8; --line:#2E3B4E;
+    --shu:#E2574A; --shu-soft:#3A2226; --gold:#D3AA4F; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C28; --sheet:#1C2635; --ink:#E6E9EE; --ink2:#9AA7B8; --line:#2E3B4E;
+  --shu:#E2574A; --shu-soft:#3A2226; --gold:#D3AA4F; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;font-size:15px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 96px}
+header{display:grid;grid-template-columns:1fr auto;align-items:end;gap:12px;margin:8px 0 18px}
+h1{font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:clamp(28px,8vw,40px);line-height:1.15;margin:0;letter-spacing:.02em}
+.sub{color:var(--ink2);font-size:13px;margin:6px 0 0}
+.tally{text-align:right;font-family:"Shippori Mincho B1",serif}
+.tally b{display:block;font-size:34px;line-height:1;color:var(--shu)}
+.tally span{font-size:12px;color:var(--ink2)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:0 0 18px}
+.bar i{display:block;height:100%;background:var(--shu);width:0;transition:width .4s}
+.controls{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);padding:8px 0 10px;display:flex;flex-direction:column;gap:8px}
+input[type=search],input[type=text],input[type=date],textarea,select{
+  width:100%;font:inherit;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--shu);outline-offset:2px}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;font:inherit;font-size:14px;padding:8px 0;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pref{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:13px;color:var(--ink2);margin:20px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+ul{list-style:none;margin:0;padding:0}
+.item{position:relative;display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;
+  padding:14px 4px;border-bottom:1px dashed var(--line);cursor:pointer;width:100%;text-align:left;background:none;border-left:0;border-right:0;border-top:0;font:inherit;color:inherit}
+.name{font-family:"Shippori Mincho B1",serif;font-weight:700;font-size:20px;line-height:1.3}
+.maboroshi{display:inline-block;font-family:"Zen Kaku Gothic New",sans-serif;font-size:11px;font-weight:700;color:var(--gold);border:1px solid var(--gold);border-radius:4px;padding:0 5px;margin-left:8px;vertical-align:3px}
+.kura{font-size:12.5px;color:var(--ink2)}
+.meta{font-size:12px;color:var(--shu);margin-top:2px}
+.slot{width:52px;height:52px;border-radius:50%;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--line);font-size:11px}
+.stamp{width:54px;height:54px;border-radius:50%;border:2.5px solid var(--shu);color:var(--shu);display:grid;place-items:center;
+  font-family:"Shippori Mincho B1",serif;font-weight:800;font-size:26px;transform:rotate(-12deg);background:var(--shu-soft)}
+.stamp.pop{animation:pop .35s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:rotate(-12deg) scale(1.8);opacity:0}to{transform:rotate(-12deg) scale(1);opacity:1}}
+.done .name{color:var(--ink2)}
+.empty{color:var(--ink2);text-align:center;padding:40px 0}
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:6;font:inherit;font-weight:700;
+  background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:12px 18px;box-shadow:0 4px 14px rgba(20,30,50,.25);cursor:pointer}
+dialog{border:0;border-radius:16px;padding:0;width:min(92vw,480px);background:var(--sheet);color:var(--ink)}
+dialog::backdrop{background:rgba(10,15,25,.5)}
+.dlg{padding:22px 20px 18px;display:flex;flex-direction:column;gap:12px}
+.dlg h2{font-family:"Shippori Mincho B1",serif;font-size:26px;margin:0;line-height:1.25}
+.dlg p{margin:0;color:var(--ink2);font-size:13px}
+label{font-size:13px;font-weight:500;display:flex;flex-direction:column;gap:4px}
+.stars{display:flex;gap:4px}
+.stars button{font-size:28px;line-height:1;background:none;border:0;color:var(--line);cursor:pointer;padding:2px}
+.stars button.on{color:var(--gold)}
+.row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:4px}
+.btn{font:inherit;font-weight:700;border-radius:10px;padding:10px 16px;cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--ink)}
+.btn.primary{background:var(--shu);border-color:var(--shu);color:#fff}
+.btn.ghost{color:var(--ink2);border-color:transparent;margin-right:auto}
+.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);
+  padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
+.toast.show{opacity:1}
+.sync{font-size:11px;color:var(--ink2);text-align:center;margin-top:28px}
+@media (prefers-reduced-motion:reduce){.stamp.pop{animation:none}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>まだ呑んでない<br>プレミア酒</h1>
+      <p class="sub">呑んだら印を押す。空いた丸が、次に探す一本。</p>
+    </div>
+    <div class="tally"><b id="tLeft">–</b><span>本 未飲</span></div>
+  </header>
+  <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+
+  <div class="controls">
+    <input id="q" type="search" placeholder="銘柄・蔵元・県で探す" aria-label="検索">
+    <div class="seg" role="group" aria-label="表示切替">
+      <button data-f="todo" aria-pressed="true">未飲</button>
+      <button data-f="done" aria-pressed="false">呑んだ</button>
+      <button data-f="all" aria-pressed="false">すべて</button>
+    </div>
+  </div>
+
+  <div id="list"></div>
+  <p class="sync" id="sync"></p>
+</div>
+
+<button class="fab" id="addBtn">＋ 銘柄を追加</button>
+<div class="toast" id="toast" role="status"></div>
+
+<dialog id="dlg"><form class="dlg" method="dialog" id="dlgForm"></form></dialog>
+
+<script>
+const BASE = [
+  ["十四代","高木酒造","山形",1],["而今","木屋正酒造","三重",1],["新政","新政酒造","秋田",1],
+  ["飛露喜","廣木酒造本店","福島",1],["黒龍 石田屋","黒龍酒造","福井",1],["獺祭 磨き その先へ","旭酒造","山口",1],
+  ["田酒","西田酒造店","青森",1],["花陽浴","南陽醸造","埼玉",1],["鍋島","富久千代酒造","佐賀",0],
+  ["風の森","油長酒造","奈良",0],["醸し人九平次","萬乗醸造","愛知",0],["寫樂","宮泉銘醸","福島",0],
+  ["作","清水清三郎商店","三重",0],["伯楽星","新澤醸造店","宮城",0],["磯自慢","磯自慢酒造","静岡",0],
+  ["東洋美人","澄川酒造場","山口",0],["雨後の月","相原酒造","広島",0],["仙禽","せんきん","栃木",0],
+  ["陸奥八仙","八戸酒造","青森",0],["紀土","平和酒造","和歌山",0],["赤武","赤武酒造","岩手",0],
+  ["荷札酒","加茂錦酒造","新潟",0],["楯野川","楯の川酒造","山形",0],["産土","花の香酒造","熊本",0],
+  ["天美","長州酒造","山口",0],["鳳凰美田","小林酒造","栃木",0],["くどき上手","亀の井酒造","山形",0],
+  ["王祿","王祿酒造","島根",0],["一白水成","福禄寿酒造","秋田",0],["上喜元","酒田酒造","山形",0],
+  ["宝剣","宝剣酒造","広島",0],["二兎","丸石醸造","愛知",0],["町田酒造","町田酒造店","群馬",0],
+  ["雪の茅舎","齋彌酒造店","秋田",0],["梵","加藤吉平商店","福井",0],["七田","天山酒造","佐賀",0],
+  ["久保田 萬寿","朝日酒造","新潟",0],["上川大雪","上川大雪酒造","北海道",0]
+].map(([name,kura,pref,m],i)=>({id:"b"+i,name,kura,pref,m:!!m}));
+
+const PREF_ORDER = "北海道,青森,岩手,宮城,秋田,山形,福島,茨城,栃木,群馬,埼玉,千葉,東京,神奈川,新潟,富山,石川,福井,山梨,長野,岐阜,静岡,愛知,三重,滋賀,京都,大阪,兵庫,奈良,和歌山,鳥取,島根,岡山,広島,山口,徳島,香川,愛媛,高知,福岡,佐賀,長崎,熊本,大分,宮崎,鹿児島,沖縄".split(",");
+const LS_KEY = "premium-sake-v1";
+
+let state = {drunk:{}, custom:[]};
+let filter = "todo", query = "", justStamped = null;
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const all = () => BASE.concat(state.custom);
+
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),1600)}
+
+function render(){
+  const list = all();
+  const doneN = list.filter(s=>state.drunk[s.id]).length;
+  $("#tLeft").textContent = list.length - doneN;
+  $("#barFill").style.width = (list.length? doneN/list.length*100 : 0) + "%";
+  const q = query.trim();
+  const shown = list.filter(s=>{
+    const d = !!state.drunk[s.id];
+    if(filter==="todo" && d) return false;
+    if(filter==="done" && !d) return false;
+    return !q || (s.name+s.kura+s.pref).includes(q);
+  });
+  if(!shown.length){
+    $("#list").innerHTML = `<p class="empty">${filter==="done" && !q ? "まだ印はありません。呑んだ銘柄をタップして押しましょう。" : filter==="todo" && !q ? "全部呑みました。新しい銘柄を追加できます。" : "該当する銘柄がありません。"}</p>`;
+    return;
+  }
+  const groups = {};
+  shown.forEach(s=>(groups[s.pref] ||= []).push(s));
+  const prefs = Object.keys(groups).sort((a,b)=>{
+    const ia=PREF_ORDER.indexOf(a), ib=PREF_ORDER.indexOf(b);
+    return (ia<0?99:ia)-(ib<0?99:ib) || a.localeCompare(b,"ja");
+  });
+  $("#list").innerHTML = prefs.map(p=>`<h3 class="pref">${esc(p)}</h3><ul>${groups[p].map(s=>{
+    const d = state.drunk[s.id];
+    const meta = d ? [d.date ? d.date.replace(/-/g,".") : "", d.rating ? "★".repeat(d.rating) : "", d.memo ? "メモあり":""].filter(Boolean).join("　") : "";
+    return `<li><button class="item${d?" done":""}" data-id="${s.id}" aria-label="${esc(s.name)}${d?"（呑んだ）":"（未飲）"}">
+      <div><div class="name">${esc(s.name)}${s.m?'<span class="maboroshi">幻</span>':""}</div>
+      <div class="kura">${esc(s.kura||"蔵元未入力")}</div>${meta?`<div class="meta">${esc(meta)}</div>`:""}</div>
+      ${d?`<span class="stamp${justStamped===s.id?" pop":""}" aria-hidden="true">呑</span>`:`<span class="slot" aria-hidden="true">未</span>`}
+    </button></li>`}).join("")}</ul>`).join("");
+  justStamped = null;
+}
+
+function persist(){
+  try{localStorage.setItem(LS_KEY, JSON.stringify(state))}catch(e){}
+}
+
+function openSake(id){
+  const s = all().find(x=>x.id===id); if(!s) return;
+  const d = state.drunk[id];
+  const today = new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+  let rating = d?.rating || 0;
+  const f = $("#dlgForm");
+  f.innerHTML = `
+    <h2>${esc(s.name)}</h2>
+    <p>${esc(s.kura||"")}${s.kura?"／":""}${esc(s.pref)}</p>
+    <label>呑んだ日<input type="date" id="fDate" value="${esc(d?.date||today)}"></label>
+    <div><div style="font-size:13px;font-weight:500">評価</div>
+      <div class="stars" id="fStars">${[1,2,3,4,5].map(n=>`<button type="button" data-n="${n}" aria-label="${n}点">★</button>`).join("")}</div></div>
+    <label>メモ（どこで・味の印象など）<textarea id="fMemo" rows="3">${esc(d?.memo||"")}</textarea></label>
+    <div class="row">
+      ${d?'<button type="button" class="btn ghost" id="fUndo">印を消す</button>':""}
+      ${s.id.startsWith("c")?'<button type="button" class="btn ghost" id="fDel">銘柄を削除</button>':""}
+      <button type="button" class="btn" id="fCancel">閉じる</button>
+      <button type="button" class="btn primary" id="fOk">${d?"保存する":"呑んだ印を押す"}</button>
+    </div>`;
+  const paint = ()=>f.querySelectorAll("#fStars button").forEach(b=>b.classList.toggle("on", +b.dataset.n<=rating));
+  paint();
+  f.querySelector("#fStars").onclick = e=>{const b=e.target.closest("button"); if(!b) return; rating = +b.dataset.n===rating?0:+b.dataset.n; paint();};
+  f.querySelector("#fCancel").onclick = ()=>$("#dlg").close();
+  f.querySelector("#fOk").onclick = ()=>{
+    const first = !d;
+    state.drunk[id] = {date:f.querySelector("#fDate").value, rating, memo:f.querySelector("#fMemo").value.trim()};
+    if(first) justStamped = id;
+    persist(); $("#dlg").close(); render();
+    toast(first ? `${s.name}に印を押しました` : "保存しました");
+  };
+  const undo = f.querySelector("#fUndo");
+  if(undo) undo.onclick = ()=>{delete state.drunk[id]; persist(); $("#dlg").close(); render(); toast("印を消しました");};
+  const del = f.querySelector("#fDel");
+  if(del) del.onclick = ()=>{ if(!confirm(`「${s.name}」をリストから削除しますか？`)) return;
+    state.custom = state.custom.filter(x=>x.id!==id); delete state.drunk[id]; persist(); $("#dlg").close(); render(); toast("削除しました");};
+  $("#dlg").showModal();
+}
+
+function openAdd(){
+  const f = $("#dlgForm");
+  f.innerHTML = `
+    <h2>銘柄を追加</h2>
+    <p>リストにない、気になっている一本を足せます。</p>
+    <label>銘柄名<input type="text" id="aName" required placeholder="例：而今 特別純米"></label>
+    <label>蔵元<input type="text" id="aKura" placeholder="例：木屋正酒造"></label>
+    <label>都道府県<select id="aPref">${PREF_ORDER.map(p=>`<option>${p}</option>`).join("")}<option>その他</option></select></label>
+    <div class="row"><button type="button" class="btn" id="aCancel">閉じる</button><button type="button" class="btn primary" id="aOk">追加する</button></div>`;
+  f.querySelector("#aCancel").onclick = ()=>$("#dlg").close();
+  f.querySelector("#aOk").onclick = ()=>{
+    const name = f.querySelector("#aName").value.trim();
+    if(!name){ f.querySelector("#aName").focus(); toast("銘柄名を入力してください"); return; }
+    state.custom.push({id:"c"+Date.now().toString(36), name, kura:f.querySelector("#aKura").value.trim(), pref:f.querySelector("#aPref").value, m:false});
+    persist(); $("#dlg").close(); filter="todo"; syncSeg(); render(); toast(`${name}を追加しました`);
+  };
+  $("#dlg").showModal();
+  f.querySelector("#aName").focus();
+}
+
+function syncSeg(){document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.f===filter))}
+
+$("#list").addEventListener("click", e=>{const b=e.target.closest(".item"); if(b) openSake(b.dataset.id)});
+document.querySelector(".seg").addEventListener("click", e=>{const b=e.target.closest("button"); if(!b) return; filter=b.dataset.f; syncSeg(); render();});
+$("#q").addEventListener("input", e=>{query=e.target.value; render();});
+$("#addBtn").addEventListener("click", openAdd);
+
+// 端末内の保存から復元
+try{const raw=localStorage.getItem(LS_KEY); if(raw){const v=JSON.parse(raw); state={drunk:v.drunk||{}, custom:v.custom||[]};}}catch(e){}
+render();
+
+// 記録はこのブラウザ（localStorage）だけに保存されます
+$("#sync").textContent = "記録はこの端末のブラウザに保存されます。";
+</script>
+</body>
+</html>
