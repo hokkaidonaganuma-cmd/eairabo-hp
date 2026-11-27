@@ -24,7 +24,7 @@ img{max-width:100%}
 
 /* ===== ヘッダー（黒×黄色・前のまま） ===== */
 .bar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(13,15,18,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
-.bar::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:repeating-linear-gradient(135deg,var(--amber) 0 14px,var(--black) 14px 28px);opacity:.9}
+.bar::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--amber)}
 .bar .w{display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
 .logo .mark{width:38px;height:38px;border-radius:9px;background:var(--amber);display:grid;place-items:center;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
@@ -80,6 +80,35 @@ img{max-width:100%}
 .incl li::before{content:"";width:18px;height:18px;margin-top:4px;border-radius:50%;background:var(--amber-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.2l2.6 2.6L13 6.4' fill='none' stroke='%23b37d00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat;flex:none}
 .price .fine{margin:14px 0 0;font-size:13px;color:var(--muted)}
 .price .btn-pri{width:100%;margin-top:20px}
+
+/* スマホだけの価格1行 */
+.m-price{display:none}
+@media (max-width:960px){
+  .m-price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 18px;padding:10px 14px;border:1px solid rgba(255,180,0,.45);border-radius:10px;background:rgba(255,180,0,.08);font-weight:700;font-size:15px;color:#fff}
+  .m-price .k{color:var(--amber);font-size:13px;letter-spacing:.06em}
+  .m-price b{font-family:var(--num);font-size:20px}
+}
+
+/* 実際の画面 */
+.screens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.shot{margin:0}
+.shot a{display:block;border:1px solid var(--line2);border-radius:var(--r);overflow:hidden;background:#eceae5;box-shadow:0 10px 28px rgba(20,23,27,.08);transition:box-shadow .2s}
+.shot a:hover{box-shadow:0 16px 36px rgba(20,23,27,.14)}
+.shot .frame{aspect-ratio:16/10;display:grid;place-items:center;position:relative}
+.shot .frame::before{content:"画面を読み込み中";position:absolute;color:var(--muted);font-size:13px}
+.shot img{position:relative;display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#eceae5}
+.shot figcaption{margin-top:12px}
+.shot figcaption b{display:block;font-size:16px}
+.shot figcaption span{display:block;color:var(--ink2);font-size:14.5px}
+.shot figcaption small{display:block;margin-top:4px;color:var(--muted);font-size:12.5px}
+
+/* お問い合わせ */
+.support{display:flex;gap:28px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:28px 30px}
+.support h3{margin:0 0 6px;font-size:20px}
+.support p{margin:0;color:var(--ink2)}
+.support ul{margin:10px 0 0;padding-left:1.2em;color:var(--ink2);font-size:15px}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#2a2f36}
 
 /* ===== 写真の帯 ===== */
 .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--black);padding:4px 0}
@@ -142,11 +171,6 @@ h2{margin:8px 0 12px;font-size:clamp(26px,3.4vw,36px);line-height:1.4;font-weigh
 .steps p{margin:0;font-size:15.5px}
 .steps b{font-weight:800}
 .shops{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
-.shops .lb{font-weight:700;margin-right:6px}
-.shop{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 20px;border-radius:10px;font-weight:700;text-decoration:none;border:1.5px solid var(--ink);color:var(--ink);background:var(--white)}
-.shop:hover{background:var(--ink);color:#fff}
-.shop[href="#"]{border-color:var(--line2);color:var(--muted);pointer-events:none}
-.shop[href="#"]::after{content:"準備中";font-size:11.5px;font-weight:700;background:#efede8;color:var(--muted);border-radius:5px;padding:1px 6px}
 
 /* インストールの注意・動作環境 */
 .install{padding-top:0}
@@ -183,6 +207,7 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
   .steps li:nth-child(2){border-right:none}
   .steps li:nth-child(-n+2){border-bottom:1px solid var(--line)}
   .strip{grid-template-columns:repeat(2,1fr)}
+  .screens{grid-template-columns:minmax(0,1fr);max-width:640px}
   .strip div{height:160px}
 }
 @media (max-width:640px){
@@ -218,6 +243,7 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
       <a href="#features">できること</a>
       <a href="#price">料金</a>
       <a href="#buy">購入の流れ</a>
+      <a href="#contact">お問い合わせ</a>
       <a class="navcta" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">無料で試す</a>
     </nav>
   </div>
@@ -226,6 +252,7 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
 <div class="hero" id="top">
   <div class="w">
     <div>
+      <p class="m-price"><span class="k">先着10本 限定価格</span><span><b>19,800</b>円（税込）</span></p>
       <span class="eyebrow">整備・板金工場の見積・請求ソフト</span>
       <h1><span class="pn">クルマの窓口</span><span class="nowrap">見積も、</span><span class="nowrap">請求も、</span><span class="nowrap">入金も。</span><br>これ1本で。</h1>
       <p class="sub">月額0円・買い切りの、町の整備・板金工場のためのソフト。お客様のデータは、お使いのパソコンの中だけに保存します。</p>
@@ -291,6 +318,21 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
     </div>
   </section>
 
+  <section id="screens">
+    <div class="w">
+      <div class="sec-head">
+        <span class="eyebrow">SCREENS</span>
+        <h2>実際の画面</h2>
+        <p>クルマの窓口の画面を、そのままお見せします。画像を押すと大きく表示します。</p>
+      </div>
+      <div class="screens">
+        <figure class="shot"><a href="screen-home.png" target="_blank" rel="noopener"><div class="frame"><img src="screen-home.png" alt="クルマの窓口のホーム画面" loading="lazy" onerror="this.style.visibility='hidden'"></div></a><figcaption><b>ホーム画面</b><span>今月の売上、未入金、車検が近い車をひと目で。</span></figcaption></figure>
+        <figure class="shot"><a href="screen-slip.png" target="_blank" rel="noopener"><div class="frame"><img src="screen-slip.png" alt="クルマの窓口の伝票編集画面" loading="lazy" onerror="this.style.visibility='hidden'"></div></a><figcaption><b>伝票編集画面</b><span>部品・工賃・塗装・法定費用を入れて、消費税と非課税を分けて自動計算。</span></figcaption></figure>
+        <figure class="shot"><a href="screen-invoice.png" target="_blank" rel="noopener"><div class="frame"><img src="screen-invoice.png" alt="クルマの窓口の請求書プレビュー" loading="lazy" onerror="this.style.visibility='hidden'"></div></a><figcaption><b>請求書プレビュー</b><span>インボイス登録番号入りの請求書を、そのまま印刷。</span><small>※試用版の画面のため、「試用版」の透かしが入っています。ライセンス登録後は透かしは入りません。</small></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
   <section class="feat" id="features">
     <div class="w">
       <div class="sec-head">
@@ -352,11 +394,30 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
       </div>
       <ol class="steps">
         <li><span class="sn">STEP 1</span><p>試用版をインストールして試す</p></li>
-        <li><span class="sn">STEP 2</span><p>下の売り場のどれかでライセンスを購入</p></li>
-        <li><span class="sn">STEP 3</span><p>ソフトの「設定・バックアップ」に出る<b>申請コード</b>をお知らせください</p></li>
+        <li><span class="sn">STEP 2</span><p>ココナラでライセンスを購入</p></li>
+        <li><span class="sn">STEP 3</span><p>ココナラのトークルームで、ソフトの「設定・バックアップ」に出る<b>申請コード</b>をお知らせください</p></li>
         <li><span class="sn">STEP 4</span><p>そのパソコン専用のライセンスキーをお届けします（パソコン買い替え時の再発行は無料）</p></li>
       </ol>
-      <div class="shops"><span class="lb">ライセンスの売り場</span><!-- 売り場が決まったら href を入れる（入れると「準備中」の札が消えます） --><a class="shop" href="#">BOOTH</a><a class="shop" href="#">Vector</a><a class="shop" href="https://coconala.com/services/4536110" target="_blank" rel="noopener">ココナラ</a></div>
+      <div class="shops">
+        <a class="btn btn-dark" href="https://coconala.com/services/4536110" target="_blank" rel="noopener">ココナラでライセンスを購入する</a>
+        <span style="color:var(--muted);font-size:14px">BOOTH・Vectorなど、他の売り場も準備中です。</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:0 0 40px">
+    <div class="w">
+      <div class="support" id="contact">
+        <div>
+          <h3>お問い合わせ・サポート</h3>
+          <p>お問い合わせは、ココナラのメッセージで受け付けています。</p>
+          <ul>
+            <li>ご購入前のご質問：ココナラの出品ページから、メッセージでお送りください。</li>
+            <li>ご購入後のご連絡：ココナラのトークルームでお送りください。</li>
+          </ul>
+        </div>
+        <a class="btn btn-dark" href="https://coconala.com/services/4536110" target="_blank" rel="noopener">ココナラの出品ページへ</a>
+      </div>
     </div>
   </section>
 
