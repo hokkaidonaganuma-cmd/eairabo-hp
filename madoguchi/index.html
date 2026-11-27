@@ -7,184 +7,197 @@
 <meta name="description" content="月額なし・買い切り。町の整備・板金工場のための見積・請求ソフト「クルマの窓口」。データはパソコンの中だけに保存。">
 <style>
 :root{
-  --navy:#0e1238;--navy2:#1b1f5e;--ink:#1a1d33;--muted:#5d6382;--paper:#fffaf3;--card:#ffffff;
-  --sun:#ff7a1a;--rose:#ff3d7f;--gold:#ffc83d;--mint:#2fd6b5;--sky:#4f8bff;--line:#efe4d6;
-  --grad:linear-gradient(100deg,#ff7a1a 0%,#ff3d7f 55%,#a24bff 100%);
+  --black:#0d0f12;--char:#16191e;--steel:#22272e;--line:#2e343c;--ink:#15181c;--muted:#5b626b;
+  --paper:#f4f2ee;--card:#fff;--amber:#ffb400;--amber2:#ff8a00;--red:#e8332a;--white:#fff;
+  --u:"https://images.unsplash.com/";
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.w{max-width:1040px;margin:0 auto;padding:0 20px}
+.w{max-width:1100px;margin:0 auto;padding:0 22px}
+.photo{background-color:var(--steel);background-size:cover;background-position:center}
 
-/* ===== ヒーロー ===== */
-.hero{position:relative;overflow:hidden;color:#fff;background:
-  radial-gradient(900px 500px at 85% -10%,rgba(255,61,127,.55),transparent 60%),
-  radial-gradient(700px 480px at 0% 110%,rgba(255,122,26,.45),transparent 60%),
-  radial-gradient(600px 400px at 60% 120%,rgba(79,139,255,.35),transparent 60%),
-  linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);
-  padding:28px 0 96px}
-.hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.06) 0 2px,transparent 2px 46px);pointer-events:none}
-.stripes{position:absolute;right:-80px;top:120px;width:620px;height:260px;transform:skewX(-24deg);pointer-events:none;opacity:.9}
-.stripes i{display:block;height:14px;margin:18px 0;border-radius:8px;background:var(--grad);box-shadow:0 0 24px rgba(255,61,127,.55)}
-.stripes i:nth-child(2){width:78%;margin-left:22%;opacity:.8}
-.stripes i:nth-child(3){width:58%;margin-left:42%;opacity:.6}
-.stripes i:nth-child(4){width:38%;margin-left:62%;opacity:.4}
-.top{display:flex;justify-content:space-between;align-items:center;position:relative}
-.brand{font-weight:800;letter-spacing:.08em;font-size:14px;opacity:.9}
-.brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero .inner{position:relative;margin-top:56px;max-width:760px}
-.kicker{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:700;backdrop-filter:blur(6px)}
-.kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
-h1{margin:18px 0 10px;font-size:clamp(44px,8vw,76px);line-height:1.1;letter-spacing:.04em;font-weight:900}
-h1 span{background:linear-gradient(100deg,#fff 0%,#ffd9b8 40%,#ffb1cf 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 24px rgba(255,61,127,.35))}
-.lead{font-size:clamp(17px,2.4vw,21px);margin:0;opacity:.95}
+/* ===== ヘッダー（上の帯） ===== */
+.bar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(13,15,18,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+.bar::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:repeating-linear-gradient(135deg,var(--amber) 0 14px,var(--black) 14px 28px);opacity:.9}
+.bar .w{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
+.logo .mark{width:38px;height:38px;border-radius:9px;background:var(--amber);display:grid;place-items:center;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.logo .name{display:flex;flex-direction:column;line-height:1.15}
+.logo .name b{font-size:19px;letter-spacing:.08em;font-weight:900}
+.logo .name small{font-size:10.5px;letter-spacing:.22em;color:#9aa3ad;font-weight:700}
+.nav{display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:700}
+.nav a{text-decoration:none;color:#cfd5dc;position:relative}
+.nav a:not(.navcta):hover{color:#fff}
+.nav a:not(.navcta)::after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:2px;background:var(--amber);transition:right .2s}
+.nav a:not(.navcta):hover::after{right:0}
+.navcta{background:var(--amber);color:var(--black)!important;padding:9px 18px;border-radius:8px;font-weight:900;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.navcta:hover{background:#ffc53a}
 
-/* 価格カード */
-.pricebox{position:relative;margin-top:34px;display:flex;flex-wrap:wrap;gap:18px;align-items:stretch}
-.price-main{position:relative;background:#fff;color:var(--ink);border-radius:22px;padding:22px 26px 20px;min-width:270px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
-.price-main::before{content:"";position:absolute;inset:-3px;border-radius:25px;background:var(--grad);z-index:-1}
-.ribbon{position:absolute;top:-16px;left:20px;background:var(--grad);color:#fff;font-weight:800;font-size:14px;padding:5px 14px;border-radius:999px;box-shadow:0 6px 16px rgba(255,61,127,.45);letter-spacing:.06em}
-.yen{font-size:54px;font-weight:900;line-height:1.1;letter-spacing:.01em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.yen small{font-size:18px;color:var(--muted);-webkit-text-fill-color:var(--muted);font-weight:700;margin-left:4px}
-.reg{font-size:15px;color:var(--muted);margin-top:2px}
-.reg s{text-decoration-thickness:2px;text-decoration-color:var(--rose)}
-.price-side{display:flex;flex-direction:column;justify-content:center;gap:8px;font-size:15px}
-.chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-weight:700}
-.chip::before{content:"✓";display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--mint);color:#06302a;font-size:13px;font-weight:900}
+/* ===== ヒーロー（写真） ===== */
+.hero{position:relative;color:#fff;padding:124px 0 70px;overflow:hidden;
+  background:linear-gradient(90deg,rgba(13,15,18,.96) 0%,rgba(13,15,18,.86) 42%,rgba(13,15,18,.35) 100%),
+  url("https://images.unsplash.com/photo-1727893119356-1702fe921cf9?auto=format&fit=crop&w=2000&q=70") center/cover no-repeat,var(--char)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(transparent,rgba(13,15,18,.6))}
+.hero .w{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.label{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:900;letter-spacing:.18em;color:var(--amber)}
+.label::before{content:"";width:28px;height:3px;background:var(--amber)}
+h1{margin:14px 0 14px;font-size:clamp(46px,7.4vw,84px);line-height:1.05;letter-spacing:.03em;font-weight:900}
+h1 em{font-style:normal;color:var(--amber)}
+.lead{margin:0;font-size:clamp(19px,2.4vw,24px);font-weight:900;line-height:1.5}
+.sub{margin:10px 0 0;color:#c9cfd6;font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:7px 12px;font-weight:700;font-size:14px}
+.chip::before{content:"";width:8px;height:8px;background:var(--amber);transform:rotate(45deg)}
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:28px;background:var(--amber);color:var(--black);text-decoration:none;font-weight:900;font-size:18px;padding:17px 28px;border-radius:10px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),0 12px 30px rgba(255,180,0,.28);transition:transform .15s,background .15s}
+.cta:hover{transform:translateY(-2px);background:#ffc53a}
+.cta-note{margin:12px 0 0;font-size:14px;color:#aeb6bf}
 
-.cta{display:inline-flex;align-items:center;gap:12px;margin-top:34px;background:var(--grad);color:#fff;text-decoration:none;font-weight:800;font-size:19px;padding:18px 30px;border-radius:16px;box-shadow:0 14px 34px rgba(255,61,127,.45),inset 0 1px 0 rgba(255,255,255,.35);position:relative;overflow:hidden;transition:transform .15s}
-.cta:hover{transform:translateY(-2px)}
-.cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
-@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
-@media (prefers-reduced-motion:reduce){.cta::after{animation:none;display:none}}
-.cta svg{flex:none}
-.cta-note{margin:12px 0 0;font-size:14px;opacity:.85}
-
-/* 価格を主役に */
-.mega{position:relative;margin-top:30px;background:#fff;color:var(--ink);border-radius:28px;padding:30px 30px 24px;box-shadow:0 26px 70px rgba(0,0,0,.45);max-width:640px}
-.mega::before{content:"";position:absolute;inset:-4px;border-radius:32px;background:var(--grad);z-index:-1;box-shadow:0 0 60px rgba(255,61,127,.55)}
-.mega-tag{display:inline-block;background:var(--grad);color:#fff;font-weight:900;font-size:clamp(18px,3vw,24px);letter-spacing:.08em;padding:6px 20px;border-radius:999px;box-shadow:0 8px 20px rgba(255,61,127,.45)}
-.mega-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px}
-.mega-yen{display:flex;align-items:baseline;gap:4px;line-height:1}
-.mega-yen .n{font-size:clamp(76px,15vw,132px);font-weight:900;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.mega-yen .u{font-size:clamp(30px,5vw,48px);font-weight:900;color:var(--rose)}
-.mega-yen .t{font-size:16px;font-weight:800;color:var(--muted);margin-left:4px}
-.burst{position:absolute;right:-22px;top:-34px;width:136px;height:136px;display:grid;place-items:center;text-align:center;line-height:1.1;color:#b3001b;font-weight:900;font-size:17px;background:var(--gold);transform:rotate(-12deg);
+/* 価格カード（主役） */
+.mega{position:relative;background:#fff;color:var(--ink);border-radius:18px;padding:30px 30px 24px;box-shadow:0 30px 70px rgba(0,0,0,.5);border-top:8px solid var(--red)}
+.mega-tag{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;font-weight:900;font-size:clamp(17px,2.4vw,22px);letter-spacing:.08em;padding:6px 16px;border-radius:6px}
+.mega-yen{display:flex;align-items:baseline;gap:4px;line-height:1;margin-top:10px}
+.mega-yen .n{font-size:clamp(78px,10vw,124px);font-weight:900;letter-spacing:-.03em;color:var(--red)}
+.mega-yen .u{font-size:clamp(30px,4vw,44px);font-weight:900;color:var(--red)}
+.mega-yen .t{font-size:15px;font-weight:800;color:var(--muted);margin-left:4px;white-space:nowrap}
+.mega-reg{margin-top:12px;padding-top:12px;border-top:2px dashed #e4e0d8;font-size:clamp(15px,1.9vw,18px);font-weight:700;color:var(--muted)}
+.mega-reg s{font-size:1.15em;text-decoration-thickness:3px;text-decoration-color:var(--red)}
+.mega-reg strong{color:var(--red);font-size:1.2em}
+.mega-note{margin-top:4px;font-size:13px;color:var(--muted)}
+.burst{position:absolute;right:-20px;top:-34px;width:132px;height:132px;display:grid;place-items:center;text-align:center;line-height:1.1;color:var(--black);font-weight:900;font-size:16px;background:var(--amber);transform:rotate(-12deg);
   clip-path:polygon(50% 0,61% 13%,77% 6%,79% 23%,96% 25%,88% 40%,100% 52%,86% 62%,92% 79%,75% 79%,69% 96%,55% 86%,42% 99%,35% 83%,18% 91%,18% 74%,2% 68%,12% 54%,0 40%,16% 32%,13% 15%,31% 16%,38% 1%);
   animation:pop 2.4s ease-in-out infinite}
-.burst b{display:block;font-size:34px;letter-spacing:-.02em}
+.burst b{display:block;font-size:32px;letter-spacing:-.02em;color:var(--red)}
 @keyframes pop{0%,100%{transform:rotate(-12deg) scale(1)}50%{transform:rotate(-8deg) scale(1.07)}}
 @media (prefers-reduced-motion:reduce){.burst{animation:none}}
-.mega-reg{margin-top:10px;font-size:clamp(15px,2.2vw,18px);font-weight:700;color:var(--muted)}
-.mega-reg s{font-size:1.15em;text-decoration-thickness:3px;text-decoration-color:var(--rose)}
-.mega-reg strong{color:var(--rose);font-size:1.15em}
-.mega-note{margin-top:4px;font-size:13.5px;color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 
-/* 価格の比べ */
-.pricing{background:linear-gradient(135deg,#1b1f5e 0%,#3a1660 100%);color:#fff;text-align:center;position:relative;overflow:hidden}
-.pricing::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 2px,transparent 2px 40px)}
-.pricing .w{position:relative}
-.pricing h2{color:#fff}
-.vs{display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap;margin-top:10px}
-.old{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:20px 28px;min-width:220px}
-.old .lb{font-weight:800;opacity:.8}
-.old .pr{font-size:44px;font-weight:900;text-decoration:line-through;text-decoration-color:var(--rose);text-decoration-thickness:4px;opacity:.75}
-.arrow{font-size:48px;font-weight:900;color:var(--gold);text-shadow:0 0 20px rgba(255,200,61,.6)}
-.new{position:relative;background:#fff;color:var(--ink);border-radius:24px;padding:24px 34px;min-width:280px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
-.new::before{content:"";position:absolute;inset:-4px;border-radius:28px;background:var(--grad);z-index:-1}
-.new .lb{font-weight:900;color:var(--rose);letter-spacing:.06em}
-.new .pr{font-size:clamp(56px,9vw,80px);font-weight:900;line-height:1.1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.new .pr small{font-size:22px;-webkit-text-fill-color:var(--rose)}
-.save{display:inline-block;margin-top:26px;background:var(--gold);color:#b3001b;font-weight:900;font-size:clamp(22px,4vw,32px);padding:10px 28px;border-radius:16px;transform:rotate(-2deg);box-shadow:0 10px 30px rgba(255,200,61,.45)}
-.pricing .fine{margin-top:16px;font-size:14px;opacity:.8}
-
-.wave{position:absolute;left:0;right:0;bottom:-1px;height:70px;display:block}
+/* ===== 写真の帯 ===== */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);height:220px;background:var(--black)}
+.strip div{position:relative;filter:saturate(.9)}
+.strip div::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(13,15,18,.55))}
 
 /* ===== セクション共通 ===== */
-section{padding:72px 0}
-.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.18em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-h2{margin:4px 0 26px;font-size:clamp(26px,4vw,36px);line-height:1.35;font-weight:900}
-h2 .u{background:linear-gradient(transparent 62%,rgba(255,200,61,.55) 62%)}
+section{padding:84px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:900;letter-spacing:.2em;color:var(--amber2)}
+.eyebrow::before{content:"";width:28px;height:3px;background:currentColor}
+h2{margin:8px 0 28px;font-size:clamp(28px,4.2vw,42px);line-height:1.3;font-weight:900}
+h2 .hl{box-shadow:inset 0 -.38em 0 rgba(255,180,0,.45)}
 
-/* こんな工場に */
-.pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:0;padding:0;list-style:none}
-.pains li{position:relative;background:var(--card);border-radius:18px;padding:22px 22px 22px 70px;box-shadow:0 8px 24px rgba(30,20,60,.07);border:1px solid var(--line);font-weight:700}
-.pains li::before{content:"";position:absolute;left:20px;top:22px;width:34px;height:34px;border-radius:10px;background:var(--grad);box-shadow:0 6px 14px rgba(255,61,127,.35)}
-.pains li::after{content:"✓";position:absolute;left:20px;top:22px;width:34px;height:34px;display:grid;place-items:center;color:#fff;font-weight:900}
+/* こんな工場に（写真と並べる） */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.split .pic{min-height:420px;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.18);position:relative;overflow:hidden}
+.split .pic::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:8px;background:repeating-linear-gradient(135deg,var(--amber) 0 14px,var(--black) 14px 28px)}
+.pains{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.pains li{position:relative;background:var(--card);border-radius:12px;padding:18px 20px 18px 62px;font-weight:700;box-shadow:0 4px 16px rgba(0,0,0,.06);border-left:5px solid var(--amber)}
+.pains li::before{content:"✓";position:absolute;left:18px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:var(--black);color:var(--amber);display:grid;place-items:center;font-weight:900;font-size:15px}
+.punch{margin:22px 0 0;font-size:clamp(19px,2.6vw,23px);font-weight:900}
+.punch span{color:var(--red)}
 
-/* できること */
-.feat{background:linear-gradient(180deg,#fff3e6 0%,#ffeef5 100%)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
-.card{position:relative;background:var(--card);border-radius:20px;padding:26px 24px 22px;box-shadow:0 10px 30px rgba(60,20,60,.08);overflow:hidden;transition:transform .2s,box-shadow .2s}
-.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(60,20,60,.14)}
-.card::before{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:var(--c,var(--grad))}
-.num{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:14px;color:#fff;font-weight:900;font-size:18px;background:var(--c,var(--grad));margin-bottom:12px;box-shadow:0 8px 18px rgba(0,0,0,.12)}
-.card h3{margin:0 0 6px;font-size:19px}
-.card p{margin:0;color:var(--muted);font-size:15.5px}
-.c1{--c:linear-gradient(135deg,#ff7a1a,#ff3d7f)}.c2{--c:linear-gradient(135deg,#a24bff,#4f8bff)}
-.c3{--c:linear-gradient(135deg,#2fd6b5,#4f8bff)}.c4{--c:linear-gradient(135deg,#ffc83d,#ff7a1a)}
-.c5{--c:linear-gradient(135deg,#ff3d7f,#a24bff)}.c6{--c:linear-gradient(135deg,#4f8bff,#2fd6b5)}
+/* できること（写真つきカード） */
+.feat{background:var(--char);color:#fff}
+.feat h2{color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--steel);border-radius:14px;overflow:hidden;border:1px solid var(--line);transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--amber)}
+.card .ph{height:150px;position:relative}
+.card .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,25,30,0) 40%,rgba(34,39,46,1) 100%)}
+.card .num{position:absolute;left:18px;bottom:-14px;z-index:1;background:var(--amber);color:var(--black);font-weight:900;font-size:15px;padding:4px 10px;border-radius:6px;letter-spacing:.06em}
+.card .body{padding:24px 20px 22px}
+.card h3{margin:0 0 6px;font-size:18.5px;line-height:1.45}
+.card p{margin:0;color:#b9c0c8;font-size:15px}
 
-/* 安心のつくり */
-.safe{background:var(--navy);color:#fff;position:relative;overflow:hidden}
-.safe::before{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(47,214,181,.35),transparent 70%)}
-.safe h2{color:#fff}
-.safe-grid{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.safe-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:22px}
-.safe-item .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#2fd6b5,#4f8bff);margin-bottom:12px}
-.safe-item p{margin:0;opacity:.92}
+/* 価格の比べ（写真背景） */
+.pricing{position:relative;text-align:center;color:#fff;
+  background:linear-gradient(180deg,rgba(13,15,18,.9),rgba(13,15,18,.82)),url("https://images.unsplash.com/photo-1498887960847-2a5e46312788?auto=format&fit=crop&w=2000&q=70") center/cover no-repeat,var(--black)}
+.pricing h2{color:#fff}
+.vs{display:flex;justify-content:center;align-items:center;gap:24px;flex-wrap:wrap;margin-top:8px}
+.old{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:20px 30px;min-width:230px}
+.old .lb{font-weight:800;color:#b9c0c8}
+.old .pr{font-size:44px;font-weight:900;text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:4px;color:#c6ccd3}
+.arrow{font-size:46px;font-weight:900;color:var(--amber)}
+.new{background:#fff;color:var(--ink);border-radius:16px;padding:22px 36px;min-width:290px;border-top:8px solid var(--red);box-shadow:0 22px 50px rgba(0,0,0,.45)}
+.new .lb{font-weight:900;color:var(--red);letter-spacing:.06em}
+.new .pr{font-size:clamp(58px,8.5vw,84px);font-weight:900;line-height:1.1;color:var(--red);letter-spacing:-.02em}
+.new .pr small{font-size:24px}
+.save{display:inline-block;margin-top:28px;background:var(--amber);color:var(--black);font-weight:900;font-size:clamp(22px,3.6vw,32px);padding:10px 30px;border-radius:10px;transform:rotate(-2deg);box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.save b{color:var(--red)}
+.pricing .fine{margin-top:18px;font-size:14px;color:#aeb6bf}
+
+/* 安心のつくり（写真と並べる） */
+.safe .split{grid-template-columns:.95fr 1.05fr}
+.safe-list{display:grid;gap:14px}
+.safe-item{display:flex;gap:16px;align-items:flex-start;background:var(--card);border-radius:12px;padding:18px 20px;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.safe-item .ic{flex:none;width:44px;height:44px;border-radius:10px;background:var(--black);display:grid;place-items:center}
+.safe-item p{margin:0;font-weight:700}
 
 /* 購入の流れ */
-.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;list-style:none;margin:0;padding:0}
-.steps li{counter-increment:s;position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:56px 20px 20px;box-shadow:0 8px 24px rgba(30,20,60,.06)}
-.steps li::before{content:"STEP " counter(s);position:absolute;top:18px;left:20px;font-size:13px;font-weight:900;letter-spacing:.12em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.steps li::after{content:"";position:absolute;top:26px;left:86px;right:20px;height:2px;background:linear-gradient(90deg,#ffd0b0,transparent)}
-.steps b{color:var(--rose)}
-.shops-wrap{margin-top:30px;background:linear-gradient(135deg,#fff,#fff6ee);border:2px dashed #ffc6a3;border-radius:20px;padding:22px}
-.shops-wrap p{margin:0 0 12px;font-weight:800}
+.buy{background:#ebe8e2}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;list-style:none;margin:0;padding:0}
+.steps li{counter-increment:s;position:relative;background:var(--card);border-radius:12px;padding:58px 18px 20px;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.steps li::before{content:counter(s);position:absolute;top:16px;left:18px;width:30px;height:30px;border-radius:6px;background:var(--black);color:var(--amber);font-weight:900;display:grid;place-items:center}
+.steps li::after{content:"STEP";position:absolute;top:20px;left:56px;font-size:12px;font-weight:900;letter-spacing:.2em;color:var(--muted)}
+.steps b{color:var(--red)}
+.shops-wrap{margin-top:26px;background:var(--card);border-radius:14px;padding:22px;box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.shops-wrap p{margin:0 0 12px;font-weight:900}
 .shops{display:flex;gap:12px;flex-wrap:wrap}
-.shops a{position:relative;display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:12px 22px;text-decoration:none;font-weight:800;box-shadow:4px 4px 0 var(--ink);transition:transform .12s,box-shadow .12s}
-.shops a:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
-.shops a[href="#"]{opacity:.7}
-.shops a[href="#"]::after{content:"準備中";font-size:11px;font-weight:800;background:var(--gold);color:var(--ink);border-radius:6px;padding:1px 6px}
+.shops a{display:inline-flex;align-items:center;gap:8px;background:var(--black);color:#fff;border-radius:10px;padding:12px 24px;text-decoration:none;font-weight:900;box-shadow:inset 0 -3px 0 var(--amber);transition:transform .12s}
+.shops a:hover{transform:translateY(-2px)}
+.shops a[href="#"]{background:#d9d5ce;color:#6b6f75;box-shadow:none}
+.shops a[href="#"]::after{content:"準備中";font-size:11px;font-weight:900;background:#fff;color:#6b6f75;border-radius:5px;padding:1px 6px}
 
 /* インストール注意 */
-.install{padding-top:0}
-.caution{position:relative;background:#fffbe8;border:2px solid var(--gold);border-radius:20px;padding:24px 24px 24px 84px}
-.caution .ic{position:absolute;left:22px;top:24px;width:44px;height:44px;border-radius:50%;background:var(--gold);display:grid;place-items:center;font-weight:900;font-size:24px;color:var(--ink)}
+.install{padding:0 0 84px;background:#ebe8e2}
+.caution{position:relative;background:#fff;border:3px solid var(--amber);border-radius:14px;padding:24px 24px 24px 86px}
+.caution .ic{position:absolute;left:22px;top:22px;width:46px;height:46px;background:var(--amber);clip-path:polygon(50% 0,100% 100%,0 100%);display:grid;place-items:end center;padding-bottom:6px;font-weight:900;font-size:22px;color:var(--black)}
 .caution h3{margin:0 0 6px;font-size:20px}
 .caution p{margin:0}
-.key{display:inline-block;background:var(--ink);color:#fff;border-radius:8px;padding:1px 10px;font-weight:800;margin:0 2px}
-.spec{margin-top:18px;color:var(--muted);font-size:14.5px}
+.key{display:inline-block;background:var(--black);color:#fff;border-radius:6px;padding:1px 10px;font-weight:800;margin:0 2px}
+.spec{margin:18px 0 0;color:var(--muted);font-size:14.5px}
 
-/* 最後のCTA */
-.final{text-align:center;color:#fff;background:
-  radial-gradient(600px 300px at 20% 0%,rgba(255,122,26,.5),transparent 70%),
-  radial-gradient(600px 300px at 80% 100%,rgba(162,75,255,.5),transparent 70%),var(--navy2)}
-.final h2{color:#fff;margin-bottom:8px}
-.final .cta{margin-top:20px}
+/* 最後のCTA（写真背景） */
+.final{position:relative;text-align:center;color:#fff;padding:100px 0;
+  background:linear-gradient(180deg,rgba(13,15,18,.78),rgba(13,15,18,.9)),url("https://images.unsplash.com/photo-1786198984387-b63cdf520602?auto=format&fit=crop&w=2000&q=70") center/cover no-repeat,var(--black)}
+.final h2{color:#fff;margin-bottom:10px}
+.final .big{margin:4px 0 0;font-size:clamp(19px,3vw,26px);font-weight:900}
+.final .big b{color:var(--amber);font-size:1.6em}
+.final .small{margin:4px 0 0;color:#c9cfd6}
 
-footer{background:var(--navy);color:rgba(255,255,255,.75);font-size:14px;padding:26px 0;text-align:center}
+footer{background:var(--black);color:#9aa3ad;font-size:13.5px;padding:26px 0;text-align:center;border-top:3px solid var(--amber)}
 footer b{color:#fff}
+footer .cr{margin-top:4px;font-size:12px;opacity:.7}
 
 /* スマホの下に固定ボタン */
 .sticky{display:none}
+@media (max-width:900px){
+  .split,.safe .split{grid-template-columns:1fr}
+  .hero .w{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .hero .left{display:contents}
+  .hero .label,.hero h1,.hero .lead{order:1}
+  .mega{order:2;margin:40px 0 4px}
+  .hero .sub,.hero .chips,.hero .cta,.hero .cta-note{order:3}
+  .hero .cta{align-self:flex-start}
+  .grid{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .split .pic{min-height:260px}
+  .strip{grid-template-columns:repeat(2,1fr);height:260px}
+}
 @media (max-width:640px){
-  .hero{padding-bottom:84px}
-  .stripes{width:420px;right:-160px;top:90px;opacity:.55}
-  .pricebox{flex-direction:column}
+  .nav a:not(.navcta){display:none}
+  .navcta{padding:8px 12px;font-size:13px}
+  .logo .name b{font-size:17px}
+  .hero{padding:104px 0 56px;background:linear-gradient(180deg,rgba(13,15,18,.78) 0%,rgba(13,15,18,.92) 60%),url("https://images.unsplash.com/photo-1727893119356-1702fe921cf9?auto=format&fit=crop&w=1000&q=70") center/cover no-repeat,var(--char)}
   .mega{padding:26px 20px 20px}
-  .burst{width:100px;height:100px;font-size:13px;right:-10px;top:-40px}.burst b{font-size:25px}
+  .burst{width:98px;height:98px;font-size:12.5px;right:-8px;top:-40px}.burst b{font-size:24px}
+  .cta,.hero .cta{width:100%;align-self:stretch;justify-content:center;font-size:17px;padding:16px 16px}
+  .grid,.steps{grid-template-columns:1fr}
   .vs{flex-direction:column;gap:10px}
   .arrow{transform:rotate(90deg)}
-  .price-main{min-width:0}
-  .yen{font-size:44px}.yen small{font-size:15px}
-  .cta{width:100%;justify-content:center;font-size:17px;padding:17px 18px}
-  .caution{padding:72px 20px 20px}
+  .strip{height:200px}
+  .caution{padding:76px 20px 20px}
   .caution .ic{left:20px;top:18px}
-  .sticky{display:flex;opacity:0;pointer-events:none;transform:translateY(20px);transition:opacity .25s,transform .25s;position:fixed;left:12px;right:12px;bottom:12px;z-index:10;justify-content:center;align-items:center;gap:8px;background:var(--grad);color:#fff;text-decoration:none;font-weight:800;padding:14px;border-radius:14px;box-shadow:0 10px 28px rgba(255,61,127,.5)}
+  section{padding:64px 0}
+  .sticky{display:flex;opacity:0;pointer-events:none;transform:translateY(20px);transition:opacity .25s,transform .25s;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;justify-content:center;align-items:center;gap:8px;background:var(--amber);color:var(--black);text-decoration:none;font-weight:900;padding:14px;border-radius:10px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),0 10px 28px rgba(0,0,0,.35)}
   .sticky.show{opacity:1;pointer-events:auto;transform:none}
   body{padding-bottom:76px}
 }
@@ -192,100 +205,122 @@ footer b{color:#fff}
 </head>
 <body>
 
-<header class="hero">
-  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<header class="bar">
   <div class="w">
-    <div class="top"><div class="brand"><b>エーアイラボ</b></div></div>
-    <div class="inner">
-      <span class="kicker"><span class="dot"></span>先着10本だけの特別価格、受付中</span>
-      <h1><span>クルマの窓口</span></h1>
-      <p class="lead"><b>見積も、請求も、入金も。これ1本で。</b><br>月額0円・買い切りの、町の整備・板金工場のためのソフト。</p>
+    <a class="logo" href="#top" aria-label="クルマの窓口 トップへ">
+      <span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0d0f12" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span>
+      <span class="name"><b>クルマの窓口</b><small>by エーアイラボ</small></span>
+    </a>
+    <nav class="nav">
+      <a href="#features">できること</a>
+      <a href="#price">価格</a>
+      <a href="#buy">購入の流れ</a>
+      <a class="navcta" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">無料で試す</a>
+    </nav>
+  </div>
+</header>
 
-      <div class="mega">
-        <span class="mega-tag">先着10本 限定価格</span>
-        <div class="mega-row">
-          <div class="mega-yen"><span class="n">19,800</span><span class="u">円</span><span class="t">税込</span></div>
-          <div class="burst" aria-label="通常価格より1万円おトク"><div><b>1万円</b>おトク</div></div>
-        </div>
-        <div class="mega-reg">通常価格 <s>29,800円</s>（税込）から <strong>10,000円引き</strong></div>
-        <div class="mega-note">パソコン1台分のライセンス。11本目からは通常価格になります。</div>
-      </div>
-
+<div class="hero" id="top">
+  <div class="w">
+    <div class="left">
+      <span class="label">整備・板金工場の見積・請求ソフト</span>
+      <h1>クルマの<em>窓口</em></h1>
+      <p class="lead">見積も、請求も、入金も。<br>これ1本で。</p>
+      <p class="sub">月額0円・買い切りの、町の整備・板金工場のためのソフト。</p>
       <div class="chips">
         <span class="chip">月額料金なし</span>
         <span class="chip">データはパソコンの中だけ</span>
         <span class="chip">買い替え時の再発行は無料</span>
       </div>
-
       <a class="cta" id="dl" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
         無料の試用版をダウンロード（Windows）
       </a>
       <p class="cta-note">試用版は無料。伝票10件まで、すべての機能を試せます。</p>
     </div>
+
+    <div class="mega">
+      <div class="burst" aria-label="通常価格より1万円おトク"><div><b>1万円</b>おトク</div></div>
+      <span class="mega-tag">先着10本 限定価格</span>
+      <div class="mega-yen"><span class="n">19,800</span><span class="u">円</span><span class="t">税込</span></div>
+      <div class="mega-reg">通常価格 <s>29,800円</s>（税込）から <strong>10,000円引き</strong></div>
+      <div class="mega-note">パソコン1台分のライセンス。11本目からは通常価格になります。</div>
+    </div>
   </div>
-  <svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 C240,80 480,0 720,30 C960,60 1200,10 1440,40 L1440,70 L0,70 Z" fill="#fffaf3"/></svg>
-</header>
+</div>
+
+<div class="strip" aria-hidden="true">
+  <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=65')"></div>
+  <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1645445522156-9ac06bc7a767?auto=format&fit=crop&w=800&q=65')"></div>
+  <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1767681092416-bccf9410bda4?auto=format&fit=crop&w=800&q=65')"></div>
+  <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=800&q=65')"></div>
+</div>
 
 <main>
   <section>
-    <div class="w">
-      <span class="eyebrow">FOR YOU</span>
-      <h2>その見積書、<span class="u">まだ手書き</span>ですか？</h2>
-      <ul class="pains">
-        <li>見積書・請求書を、手書きやExcelで毎回つくっている</li>
-        <li>毎月かかる業務ソフト代が、小さな工場には重い</li>
-        <li>お客様の情報を、ネット上（クラウド）に置きたくない</li>
-      </ul>
-      <p style="margin:22px 0 0;font-size:clamp(18px,2.6vw,22px);font-weight:900">ひとつでも当てはまったら、<span style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">クルマの窓口の出番です。</span></p>
+    <div class="w split">
+      <div>
+        <span class="eyebrow">FOR YOU</span>
+        <h2>その見積書、<br><span class="hl">まだ手書き</span>ですか？</h2>
+        <ul class="pains">
+          <li>見積書・請求書を、手書きやExcelで毎回つくっている</li>
+          <li>毎月かかる業務ソフト代が、小さな工場には重い</li>
+          <li>お客様の情報を、ネット上（クラウド）に置きたくない</li>
+        </ul>
+        <p class="punch">ひとつでも当てはまったら、<span>クルマの窓口の出番です。</span></p>
+      </div>
+      <div class="pic photo" role="img" aria-label="車のエンジンを点検する整備士" style="background-image:url('https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=1200&q=70')"></div>
     </div>
   </section>
 
-  <section class="feat">
+  <section class="feat" id="features">
     <div class="w">
-      <span class="eyebrow">FEATURES</span>
-      <h2>工場の事務を、<span class="u">これ1本に。</span></h2>
+      <span class="eyebrow" style="color:var(--amber)">FEATURES</span>
+      <h2>工場の事務を、<span style="color:var(--amber)">これ1本に。</span></h2>
       <div class="grid">
-        <div class="card c1"><span class="num">01</span><h3>見積→請求→入金、1枚の伝票でつながる</h3><p>部品・工賃（工数×時間工賃）・塗装（パネル数×単価）・法定費用を入れるだけ。消費税と非課税を分けて自動計算。</p></div>
-        <div class="card c2"><span class="num">02</span><h3>書類5種類を、そのまま印刷</h3><p>見積書・作業指示書・納品書・請求書・領収書。インボイス登録番号入り。PDFにもできます。</p></div>
-        <div class="card c3"><span class="num">03</span><h3>傷の写真ごと、伝票に残せる</h3><p>修理前・修理後の写真を付けて、書類と一緒に印刷できます。</p></div>
-        <div class="card c4"><span class="num">04</span><h3>車ごとの整備カルテ＋車検のお知らせ</h3><p>いつ・何km・何をしたかを一覧に。車検が近い車はホームでお知らせ。</p></div>
-        <div class="card c5"><span class="num">05</span><h3>入金・未入金・売上を一覧で</h3><p>入金の記録、未入金の一覧、今月の売上（税抜）。CSVでExcelにも。</p></div>
-        <div class="card c6"><span class="num">06</span><h3>中古車の販売見積も、これで</h3><p>在庫車の仕入値と粗利、車両本体＋諸費用の販売見積。</p></div>
+        <div class="card"><div class="ph photo" style="background-image:url('https://images.unsplash.com/photo-1615906655593-ad0386982a0f?auto=format&fit=crop&w=800&q=65')"><span class="num">01</span></div><div class="body"><h3>見積→請求→入金、1枚の伝票でつながる</h3><p>部品・工賃（工数×時間工賃）・塗装（パネル数×単価）・法定費用を入れるだけ。消費税と非課税を分けて自動計算。</p></div></div>
+        <div class="card"><div class="ph photo" style="background-image:url('https://images.unsplash.com/photo-1771340012378-3c86cb649193?auto=format&fit=crop&w=800&q=65')"><span class="num">02</span></div><div class="body"><h3>書類5種類を、そのまま印刷</h3><p>見積書・作業指示書・納品書・請求書・領収書。インボイス登録番号入り。PDFにもできます。</p></div></div>
+        <div class="card"><div class="ph photo" style="background-image:url('https://images.unsplash.com/photo-1786489283327-2fbcb441a82e?auto=format&fit=crop&w=800&q=65')"><span class="num">03</span></div><div class="body"><h3>傷の写真ごと、伝票に残せる</h3><p>修理前・修理後の写真を付けて、書類と一緒に印刷できます。</p></div></div>
+        <div class="card"><div class="ph photo" style="background-image:url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=800&q=65')"><span class="num">04</span></div><div class="body"><h3>車ごとの整備カルテ＋車検のお知らせ</h3><p>いつ・何km・何をしたかを一覧に。車検が近い車はホームでお知らせ。</p></div></div>
+        <div class="card"><div class="ph photo" style="background-image:url('https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?auto=format&fit=crop&w=800&q=65')"><span class="num">05</span></div><div class="body"><h3>入金・未入金・売上を一覧で</h3><p>入金の記録、未入金の一覧、今月の売上（税抜）。CSVでExcelにも。</p></div></div>
+        <div class="card"><div class="ph photo" style="background-image:url('https://images.unsplash.com/photo-1727893294198-e85137574f5b?auto=format&fit=crop&w=800&q=65')"><span class="num">06</span></div><div class="body"><h3>中古車の販売見積も、これで</h3><p>在庫車の仕入値と粗利、車両本体＋諸費用の販売見積。</p></div></div>
       </div>
     </div>
   </section>
 
-  <section class="pricing">
+  <section class="pricing" id="price">
     <div class="w">
-      <span class="eyebrow">LAUNCH PRICE</span>
+      <span class="eyebrow" style="color:var(--amber)">LAUNCH PRICE</span>
       <h2>先着10本だけ、<br>この値段です。</h2>
       <div class="vs">
         <div class="old"><div class="lb">通常価格</div><div class="pr">29,800円</div></div>
         <div class="arrow" aria-hidden="true">➜</div>
         <div class="new"><div class="lb">先着10本 限定</div><div class="pr">19,800<small>円</small></div><div style="font-weight:700;color:var(--muted)">税込・パソコン1台分</div></div>
       </div>
-      <div class="save">1万円おトク！</div>
+      <div class="save"><b>1万円</b>おトク！</div>
       <p class="fine">月額料金はかかりません。11本目からは通常価格（29,800円・税込）になります。</p>
     </div>
   </section>
 
   <section class="safe">
-    <div class="w">
-      <span class="eyebrow">SAFETY</span>
-      <h2>お客様のデータは、<br>外に出さない。</h2>
-      <div class="safe-grid">
-        <div class="safe-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><p>データはお使いのパソコンの中だけに保存。ネットにつながっていなくても使えます。</p></div>
-        <div class="safe-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10v18H7z"/><path d="M10 7h4M10 11h4"/></svg></div><p>バックアップはボタン1つ。USBメモリにも保存できます。</p></div>
-        <div class="safe-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></div><p>新しい版が出たら、ソフトの中から更新できます（データはそのまま）。</p></div>
+    <div class="w split">
+      <div class="pic photo" role="img" aria-label="整備工場で修理中の車" style="background-image:url('https://images.unsplash.com/photo-1632733711679-529326f6db12?auto=format&fit=crop&w=1200&q=70')"></div>
+      <div>
+        <span class="eyebrow">SAFETY</span>
+        <h2>お客様のデータは、<br><span class="hl">外に出さない。</span></h2>
+        <div class="safe-list">
+          <div class="safe-item"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb400" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><p>データはお使いのパソコンの中だけに保存。ネットにつながっていなくても使えます。</p></div>
+          <div class="safe-item"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb400" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10v18H7z"/><path d="M10 7h4M10 11h4"/></svg></div><p>バックアップはボタン1つ。USBメモリにも保存できます。</p></div>
+          <div class="safe-item"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb400" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></div><p>新しい版が出たら、ソフトの中から更新できます（データはそのまま）。</p></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section>
+  <section class="buy" id="buy">
     <div class="w">
       <span class="eyebrow">HOW TO BUY</span>
-      <h2>ご購入は、<span class="u">4ステップ</span>。</h2>
+      <h2>ご購入は、<span class="hl">4ステップ</span>。</h2>
       <ol class="steps">
         <li>試用版をインストールして試す</li>
         <li>下の売り場のどれかでライセンスを購入</li>
@@ -313,16 +348,17 @@ footer b{color:#fff}
   <section class="final">
     <div class="w">
       <h2>まずは無料で、ぜんぶ試してください。</h2>
-      <p style="margin:6px 0 0;font-size:clamp(18px,3vw,24px);font-weight:800">先着10本は <b style="color:var(--gold);font-size:1.6em">19,800円</b>（税込）</p><p style="margin:4px 0 0;opacity:.85">通常 <s>29,800円</s>（税込）から 1万円おトク</p>
+      <p class="big">先着10本は <b>19,800円</b>（税込）</p>
+      <p class="small">通常 <s>29,800円</s>（税込）から 1万円おトク</p>
       <a class="cta" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
         無料の試用版をダウンロード（Windows）
       </a>
     </div>
   </section>
 </main>
 
-<footer><div class="w">販売元：<b>エーアイラボ</b></div></footer>
+<footer><div class="w">販売元：<b>エーアイラボ</b><div class="cr">写真：Unsplash</div></div></footer>
 
 <a class="sticky" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">無料の試用版をダウンロード</a>
 
