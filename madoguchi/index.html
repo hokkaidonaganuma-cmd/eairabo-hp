@@ -33,7 +33,7 @@ a{color:inherit}
 .top{display:flex;justify-content:space-between;align-items:center;position:relative}
 .brand{font-weight:800;letter-spacing:.08em;font-size:14px;opacity:.9}
 .brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero .inner{position:relative;margin-top:56px;max-width:640px}
+.hero .inner{position:relative;margin-top:56px;max-width:760px}
 .kicker{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:700;backdrop-filter:blur(6px)}
 .kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
 h1{margin:18px 0 10px;font-size:clamp(44px,8vw,76px);line-height:1.1;letter-spacing:.04em;font-weight:900}
@@ -60,6 +60,45 @@ h1 span{background:linear-gradient(100deg,#fff 0%,#ffd9b8 40%,#ffb1cf 100%);-web
 @media (prefers-reduced-motion:reduce){.cta::after{animation:none;display:none}}
 .cta svg{flex:none}
 .cta-note{margin:12px 0 0;font-size:14px;opacity:.85}
+
+/* 価格を主役に */
+.mega{position:relative;margin-top:30px;background:#fff;color:var(--ink);border-radius:28px;padding:30px 30px 24px;box-shadow:0 26px 70px rgba(0,0,0,.45);max-width:640px}
+.mega::before{content:"";position:absolute;inset:-4px;border-radius:32px;background:var(--grad);z-index:-1;box-shadow:0 0 60px rgba(255,61,127,.55)}
+.mega-tag{display:inline-block;background:var(--grad);color:#fff;font-weight:900;font-size:clamp(18px,3vw,24px);letter-spacing:.08em;padding:6px 20px;border-radius:999px;box-shadow:0 8px 20px rgba(255,61,127,.45)}
+.mega-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px}
+.mega-yen{display:flex;align-items:baseline;gap:4px;line-height:1}
+.mega-yen .n{font-size:clamp(76px,15vw,132px);font-weight:900;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mega-yen .u{font-size:clamp(30px,5vw,48px);font-weight:900;color:var(--rose)}
+.mega-yen .t{font-size:16px;font-weight:800;color:var(--muted);margin-left:4px}
+.burst{position:absolute;right:-22px;top:-34px;width:136px;height:136px;display:grid;place-items:center;text-align:center;line-height:1.1;color:#b3001b;font-weight:900;font-size:17px;background:var(--gold);transform:rotate(-12deg);
+  clip-path:polygon(50% 0,61% 13%,77% 6%,79% 23%,96% 25%,88% 40%,100% 52%,86% 62%,92% 79%,75% 79%,69% 96%,55% 86%,42% 99%,35% 83%,18% 91%,18% 74%,2% 68%,12% 54%,0 40%,16% 32%,13% 15%,31% 16%,38% 1%);
+  animation:pop 2.4s ease-in-out infinite}
+.burst b{display:block;font-size:34px;letter-spacing:-.02em}
+@keyframes pop{0%,100%{transform:rotate(-12deg) scale(1)}50%{transform:rotate(-8deg) scale(1.07)}}
+@media (prefers-reduced-motion:reduce){.burst{animation:none}}
+.mega-reg{margin-top:10px;font-size:clamp(15px,2.2vw,18px);font-weight:700;color:var(--muted)}
+.mega-reg s{font-size:1.15em;text-decoration-thickness:3px;text-decoration-color:var(--rose)}
+.mega-reg strong{color:var(--rose);font-size:1.15em}
+.mega-note{margin-top:4px;font-size:13.5px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+
+/* 価格の比べ */
+.pricing{background:linear-gradient(135deg,#1b1f5e 0%,#3a1660 100%);color:#fff;text-align:center;position:relative;overflow:hidden}
+.pricing::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 2px,transparent 2px 40px)}
+.pricing .w{position:relative}
+.pricing h2{color:#fff}
+.vs{display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap;margin-top:10px}
+.old{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:20px 28px;min-width:220px}
+.old .lb{font-weight:800;opacity:.8}
+.old .pr{font-size:44px;font-weight:900;text-decoration:line-through;text-decoration-color:var(--rose);text-decoration-thickness:4px;opacity:.75}
+.arrow{font-size:48px;font-weight:900;color:var(--gold);text-shadow:0 0 20px rgba(255,200,61,.6)}
+.new{position:relative;background:#fff;color:var(--ink);border-radius:24px;padding:24px 34px;min-width:280px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.new::before{content:"";position:absolute;inset:-4px;border-radius:28px;background:var(--grad);z-index:-1}
+.new .lb{font-weight:900;color:var(--rose);letter-spacing:.06em}
+.new .pr{font-size:clamp(56px,9vw,80px);font-weight:900;line-height:1.1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.new .pr small{font-size:22px;-webkit-text-fill-color:var(--rose)}
+.save{display:inline-block;margin-top:26px;background:var(--gold);color:#b3001b;font-weight:900;font-size:clamp(22px,4vw,32px);padding:10px 28px;border-radius:16px;transform:rotate(-2deg);box-shadow:0 10px 30px rgba(255,200,61,.45)}
+.pricing .fine{margin-top:16px;font-size:14px;opacity:.8}
 
 .wave{position:absolute;left:0;right:0;bottom:-1px;height:70px;display:block}
 
@@ -136,6 +175,10 @@ footer b{color:#fff}
   .hero{padding-bottom:84px}
   .stripes{width:420px;right:-160px;top:90px;opacity:.55}
   .pricebox{flex-direction:column}
+  .mega{padding:26px 20px 20px}
+  .burst{width:100px;height:100px;font-size:13px;right:-10px;top:-40px}.burst b{font-size:25px}
+  .vs{flex-direction:column;gap:10px}
+  .arrow{transform:rotate(90deg)}
   .price-main{min-width:0}
   .yen{font-size:44px}.yen small{font-size:15px}
   .cta{width:100%;justify-content:center;font-size:17px;padding:17px 18px}
@@ -154,28 +197,31 @@ footer b{color:#fff}
   <div class="w">
     <div class="top"><div class="brand"><b>エーアイラボ</b></div></div>
     <div class="inner">
-      <span class="kicker"><span class="dot"></span>月額なし・買い切り</span>
+      <span class="kicker"><span class="dot"></span>先着10本だけの特別価格、受付中</span>
       <h1><span>クルマの窓口</span></h1>
-      <p class="lead">町の整備・板金工場のための、見積・請求ソフト。</p>
+      <p class="lead"><b>見積も、請求も、入金も。これ1本で。</b><br>月額0円・買い切りの、町の整備・板金工場のためのソフト。</p>
 
-      <div class="pricebox">
-        <div class="price-main">
-          <span class="ribbon">先着10本</span>
-          <div class="yen">19,800円<small>（税込）</small></div>
-          <div class="reg">通常 <s>29,800円</s>（税込）・パソコン1台分</div>
+      <div class="mega">
+        <span class="mega-tag">先着10本 限定価格</span>
+        <div class="mega-row">
+          <div class="mega-yen"><span class="n">19,800</span><span class="u">円</span><span class="t">税込</span></div>
+          <div class="burst" aria-label="通常価格より1万円おトク"><div><b>1万円</b>おトク</div></div>
         </div>
-        <div class="price-side">
-          <span class="chip">月額料金なし</span>
-          <span class="chip">データはパソコンの中だけ</span>
-          <span class="chip">買い替え時の再発行は無料</span>
-        </div>
+        <div class="mega-reg">通常価格 <s>29,800円</s>（税込）から <strong>10,000円引き</strong></div>
+        <div class="mega-note">パソコン1台分のライセンス。11本目からは通常価格になります。</div>
+      </div>
+
+      <div class="chips">
+        <span class="chip">月額料金なし</span>
+        <span class="chip">データはパソコンの中だけ</span>
+        <span class="chip">買い替え時の再発行は無料</span>
       </div>
 
       <a class="cta" id="dl" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
         無料の試用版をダウンロード（Windows）
       </a>
-      <p class="cta-note">試用版は伝票10件まで、すべての機能を試せます。</p>
+      <p class="cta-note">試用版は無料。伝票10件まで、すべての機能を試せます。</p>
     </div>
   </div>
   <svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 C240,80 480,0 720,30 C960,60 1200,10 1440,40 L1440,70 L0,70 Z" fill="#fffaf3"/></svg>
@@ -185,34 +231,49 @@ footer b{color:#fff}
   <section>
     <div class="w">
       <span class="eyebrow">FOR YOU</span>
-      <h2>こんな<span class="u">工場</span>に</h2>
+      <h2>その見積書、<span class="u">まだ手書き</span>ですか？</h2>
       <ul class="pains">
-        <li>見積書や請求書を、まだ手書きやExcelで作っている</li>
-        <li>毎月払う業務ソフトは、小さな工場には高すぎる</li>
+        <li>見積書・請求書を、手書きやExcelで毎回つくっている</li>
+        <li>毎月かかる業務ソフト代が、小さな工場には重い</li>
         <li>お客様の情報を、ネット上（クラウド）に置きたくない</li>
       </ul>
+      <p style="margin:22px 0 0;font-size:clamp(18px,2.6vw,22px);font-weight:900">ひとつでも当てはまったら、<span style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">クルマの窓口の出番です。</span></p>
     </div>
   </section>
 
   <section class="feat">
     <div class="w">
       <span class="eyebrow">FEATURES</span>
-      <h2><span class="u">できること</span></h2>
+      <h2>工場の事務を、<span class="u">これ1本に。</span></h2>
       <div class="grid">
-        <div class="card c1"><span class="num">01</span><h3>見積から入金まで1枚で</h3><p>部品・工賃（工数×時間工賃）・塗装（パネル数×単価）・法定費用を入れるだけ。消費税と非課税を分けて自動計算。</p></div>
-        <div class="card c2"><span class="num">02</span><h3>書類をそのまま印刷</h3><p>見積書・作業指示書・納品書・請求書・領収書。インボイス登録番号入り。PDFにもできます。</p></div>
-        <div class="card c3"><span class="num">03</span><h3>傷の写真を伝票に</h3><p>修理前・修理後の写真を付けて、書類と一緒に印刷できます。</p></div>
-        <div class="card c4"><span class="num">04</span><h3>車ごとの整備の記録</h3><p>いつ・何km・何をしたかを一覧に。車検が近い車はホームでお知らせ。</p></div>
-        <div class="card c5"><span class="num">05</span><h3>入金と売上</h3><p>入金の記録、未入金の一覧、今月の売上（税抜）。CSVでExcelにも。</p></div>
-        <div class="card c6"><span class="num">06</span><h3>中古車の販売も</h3><p>在庫車の仕入値と粗利、車両本体＋諸費用の販売見積。</p></div>
+        <div class="card c1"><span class="num">01</span><h3>見積→請求→入金、1枚の伝票でつながる</h3><p>部品・工賃（工数×時間工賃）・塗装（パネル数×単価）・法定費用を入れるだけ。消費税と非課税を分けて自動計算。</p></div>
+        <div class="card c2"><span class="num">02</span><h3>書類5種類を、そのまま印刷</h3><p>見積書・作業指示書・納品書・請求書・領収書。インボイス登録番号入り。PDFにもできます。</p></div>
+        <div class="card c3"><span class="num">03</span><h3>傷の写真ごと、伝票に残せる</h3><p>修理前・修理後の写真を付けて、書類と一緒に印刷できます。</p></div>
+        <div class="card c4"><span class="num">04</span><h3>車ごとの整備カルテ＋車検のお知らせ</h3><p>いつ・何km・何をしたかを一覧に。車検が近い車はホームでお知らせ。</p></div>
+        <div class="card c5"><span class="num">05</span><h3>入金・未入金・売上を一覧で</h3><p>入金の記録、未入金の一覧、今月の売上（税抜）。CSVでExcelにも。</p></div>
+        <div class="card c6"><span class="num">06</span><h3>中古車の販売見積も、これで</h3><p>在庫車の仕入値と粗利、車両本体＋諸費用の販売見積。</p></div>
       </div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <div class="w">
+      <span class="eyebrow">LAUNCH PRICE</span>
+      <h2>先着10本だけ、<br>この値段です。</h2>
+      <div class="vs">
+        <div class="old"><div class="lb">通常価格</div><div class="pr">29,800円</div></div>
+        <div class="arrow" aria-hidden="true">➜</div>
+        <div class="new"><div class="lb">先着10本 限定</div><div class="pr">19,800<small>円</small></div><div style="font-weight:700;color:var(--muted)">税込・パソコン1台分</div></div>
+      </div>
+      <div class="save">1万円おトク！</div>
+      <p class="fine">月額料金はかかりません。11本目からは通常価格（29,800円・税込）になります。</p>
     </div>
   </section>
 
   <section class="safe">
     <div class="w">
       <span class="eyebrow">SAFETY</span>
-      <h2>安心のつくり</h2>
+      <h2>お客様のデータは、<br>外に出さない。</h2>
       <div class="safe-grid">
         <div class="safe-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><p>データはお使いのパソコンの中だけに保存。ネットにつながっていなくても使えます。</p></div>
         <div class="safe-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10v18H7z"/><path d="M10 7h4M10 11h4"/></svg></div><p>バックアップはボタン1つ。USBメモリにも保存できます。</p></div>
@@ -224,7 +285,7 @@ footer b{color:#fff}
   <section>
     <div class="w">
       <span class="eyebrow">HOW TO BUY</span>
-      <h2>ご購入の<span class="u">流れ</span></h2>
+      <h2>ご購入は、<span class="u">4ステップ</span>。</h2>
       <ol class="steps">
         <li>試用版をインストールして試す</li>
         <li>下の売り場のどれかでライセンスを購入</li>
@@ -233,7 +294,7 @@ footer b{color:#fff}
       </ol>
       <div class="shops-wrap">
         <p>ライセンスの売り場</p>
-        <div class="shops"><!-- 売り場が決まったら href を入れる（入れると「準備中」の札が消えます） --><a href="#">BOOTH</a><a href="#">Vector</a><a href="https://coconala.com/services/4536110">ココナラ</a></div>
+        <div class="shops"><!-- 売り場が決まったら href を入れる（入れると「準備中」の札が消えます） --><a href="#">BOOTH</a><a href="#">Vector</a><a href="https://coconala.com/services/4536110" target="_blank" rel="noopener">ココナラ</a></div>
       </div>
     </div>
   </section>
@@ -251,8 +312,8 @@ footer b{color:#fff}
 
   <section class="final">
     <div class="w">
-      <h2>まずは無料で、試してみてください。</h2>
-      <p style="margin:0;opacity:.9">先着10本は <b style="color:var(--gold);font-size:1.2em">19,800円</b>（税込）。通常 29,800円（税込）。</p>
+      <h2>まずは無料で、ぜんぶ試してください。</h2>
+      <p style="margin:6px 0 0;font-size:clamp(18px,3vw,24px);font-weight:800">先着10本は <b style="color:var(--gold);font-size:1.6em">19,800円</b>（税込）</p><p style="margin:4px 0 0;opacity:.85">通常 <s>29,800円</s>（税込）から 1万円おトク</p>
       <a class="cta" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
         無料の試用版をダウンロード（Windows）
