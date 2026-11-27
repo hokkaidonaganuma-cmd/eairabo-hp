@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>クルマの窓口｜整備・板金工場の見積・請求ソフト</title>
+<meta name="description" content="月額なし・買い切り。町の整備・板金工場のための見積・請求ソフト「クルマの窓口」。データはパソコンの中だけに保存。">
+<style>
+:root{--bg:#f4f6f7;--panel:#fff;--ink:#17212b;--muted:#5b6876;--line:#d3dae1;--accent:#0b6e79;--accent-ink:#fff;--soft:#dcefF1;--warn:#a85b00}
+@media (prefers-color-scheme:dark){:root{--bg:#101519;--panel:#182027;--ink:#e5ecf2;--muted:#94a3b1;--line:#2d3944;--accent:#45b7c3;--accent-ink:#04252a;--soft:#16363b;--warn:#e3a04b}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;line-height:1.7}
+.w{max-width:960px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
+header{background:var(--accent);color:var(--accent-ink);padding:48px 0 40px}
+header h1{margin:0;font-size:40px;letter-spacing:.06em}header p{margin:8px 0 0;font-size:18px}
+.price{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-top:20px}
+.price b{font-size:34px}.price s{opacity:.75}.tag{background:#fff;color:#0b6e79;border-radius:6px;padding:2px 10px;font-weight:700;font-size:14px}
+.btn{display:inline-block;border-radius:10px;padding:12px 22px;font-weight:700;text-decoration:none;border:2px solid currentColor;color:inherit}
+.btn.pri{background:var(--panel);color:var(--accent);border-color:var(--panel)}
+section{padding:36px 0;border-bottom:1px solid var(--line)}h2{font-size:24px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card h3{margin:0 0 6px;font-size:17px;color:var(--accent)}
+ol,ul{padding-left:1.4em}.note{color:var(--muted);font-size:14px}
+.shops{display:flex;gap:10px;flex-wrap:wrap}.shops a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 16px;color:var(--ink);text-decoration:none;font-weight:700}
+footer{padding:28px 0;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="w">
+ <h1>クルマの窓口</h1>
+ <p>月額なし、買い切り。町の整備・板金工場のための見積・請求ソフト。</p>
+ <div class="price"><div><span class="tag">先着10本</span><br><b>19,800円</b>（税込）</div><div>通常 <s>29,800円</s>（税込）・パソコン1台分</div></div>
+ <p style="margin-top:20px"><a class="btn pri" id="dl" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">無料の試用版をダウンロード（Windows）</a></p>
+ <p class="note" style="color:inherit;opacity:.85">試用版は伝票10件まで、すべての機能を試せます。</p>
+</div></header>
+<main class="w">
+ <section><h2>こんな工場に</h2><ul>
+  <li>見積書や請求書を、まだ手書きやExcelで作っている</li>
+  <li>毎月払う業務ソフトは、小さな工場には高すぎる</li>
+  <li>お客様の情報を、ネット上（クラウド）に置きたくない</li></ul></section>
+ <section><h2>できること</h2><div class="grid">
+  <div class="card"><h3>見積から入金まで1枚で</h3>部品・工賃（工数×時間工賃）・塗装（パネル数×単価）・法定費用を入れるだけ。消費税と非課税を分けて自動計算。</div>
+  <div class="card"><h3>書類をそのまま印刷</h3>見積書・作業指示書・納品書・請求書・領収書。インボイス登録番号入り。PDFにもできます。</div>
+  <div class="card"><h3>傷の写真を伝票に</h3>修理前・修理後の写真を付けて、書類と一緒に印刷できます。</div>
+  <div class="card"><h3>車ごとの整備の記録</h3>いつ・何km・何をしたかを一覧に。車検が近い車はホームでお知らせ。</div>
+  <div class="card"><h3>入金と売上</h3>入金の記録、未入金の一覧、今月の売上（税抜）。CSVでExcelにも。</div>
+  <div class="card"><h3>中古車の販売も</h3>在庫車の仕入値と粗利、車両本体＋諸費用の販売見積。</div>
+ </div></section>
+ <section><h2>安心のつくり</h2><ul>
+  <li>データはお使いのパソコンの中だけに保存。ネットにつながっていなくても使えます。</li>
+  <li>バックアップはボタン1つ。USBメモリにも保存できます。</li>
+  <li>新しい版が出たら、ソフトの中から更新できます（データはそのまま）。</li></ul></section>
+ <section><h2>ご購入の流れ</h2><ol>
+  <li>試用版をインストールして試す</li>
+  <li>下の売り場のどれかでライセンスを購入</li>
+  <li>ソフトの「設定・バックアップ」に出る<b>申請コード</b>をお知らせください</li>
+  <li>そのパソコン専用のライセンスキーをお届けします（パソコン買い替え時の再発行は無料）</li></ol>
+  <div class="shops"><!-- 売り場が決まったら href を入れる --><a href="#">BOOTH</a><a href="#">Vector</a><a href="#">ココナラ</a></div></section>
+ <section><h2>インストールのとき</h2>
+  <p>「WindowsによってPCが保護されました」と出たら、<b>「詳細情報」→「実行」</b>を押してください。小さな販売元のソフトに出る表示です。</p>
+  <p class="note">動作環境：Windows 10・11（64ビット）。部品価格・整備工数のデータベース、車検のOSS申請、保険会社とのデータ連携はありません。工数は自社の実績で登録して使います。</p></section>
+</main>
+<footer class="w">販売元：エーアイラボ</footer>
+</body>
+</html>
