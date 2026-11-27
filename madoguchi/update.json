@@ -1,0 +1,7 @@
+{
+  "version": "1.6.1",
+  "url": "https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe",
+  "sha256": "73f09d6d35878e93df5365d921832752b88e1f2610417267cb8857e8e79f7930",
+  "notes": "自動アップデートと「業務を終了」ボタンに対応しました",
+  "page": "https://hokkaidonaganuma-cmd.github.io/eairabo-hp/madoguchi/"
+}
