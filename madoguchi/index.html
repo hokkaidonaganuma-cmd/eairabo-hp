@@ -36,21 +36,21 @@ a{color:inherit}
 .navcta:hover{background:#ffc53a}
 
 /* ===== ヒーロー（写真） ===== */
-.hero{position:relative;color:#fff;padding:124px 0 70px;overflow:hidden;
+.hero{position:relative;color:#fff;padding:56px 0 76px;overflow:hidden;
   background:linear-gradient(90deg,rgba(13,15,18,.96) 0%,rgba(13,15,18,.86) 42%,rgba(13,15,18,.35) 100%),
   url("https://images.unsplash.com/photo-1727893119356-1702fe921cf9?auto=format&fit=crop&w=2000&q=70") center/cover no-repeat,var(--char)}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(transparent,rgba(13,15,18,.6))}
-.hero .w{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.hero .w{position:relative;z-index:1;display:grid;grid-template-columns:.92fr 1.08fr;gap:36px;align-items:center}
 .label{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:900;letter-spacing:.18em;color:var(--amber)}
 .label::before{content:"";width:28px;height:3px;background:var(--amber)}
-h1{margin:14px 0 14px;font-size:clamp(46px,7.4vw,84px);line-height:1.05;letter-spacing:.03em;font-weight:900}
+h1{margin:14px 0 14px;font-size:clamp(46px,6.2vw,70px);white-space:nowrap;line-height:1.05;letter-spacing:.03em;font-weight:900}
 h1 em{font-style:normal;color:var(--amber)}
 .lead{margin:0;font-size:clamp(19px,2.4vw,24px);font-weight:900;line-height:1.5}
 .sub{margin:10px 0 0;color:#c9cfd6;font-size:16px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
 .chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:7px 12px;font-weight:700;font-size:14px}
 .chip::before{content:"";width:8px;height:8px;background:var(--amber);transform:rotate(45deg)}
-.cta{display:inline-flex;align-items:center;gap:12px;margin-top:28px;background:var(--amber);color:var(--black);text-decoration:none;font-weight:900;font-size:18px;padding:17px 28px;border-radius:10px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),0 12px 30px rgba(255,180,0,.28);transition:transform .15s,background .15s}
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:28px;white-space:nowrap;background:var(--amber);color:var(--black);text-decoration:none;font-weight:900;font-size:18px;padding:17px 28px;border-radius:10px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.2),0 12px 30px rgba(255,180,0,.28);transition:transform .15s,background .15s}
 .cta:hover{transform:translateY(-2px);background:#ffc53a}
 .cta-note{margin:12px 0 0;font-size:14px;color:#aeb6bf}
 
@@ -67,10 +67,27 @@ h1 em{font-style:normal;color:var(--amber)}
 .mega-note{margin-top:4px;font-size:13px;color:var(--muted)}
 .burst{position:absolute;right:-20px;top:-34px;width:132px;height:132px;display:grid;place-items:center;text-align:center;line-height:1.1;color:var(--black);font-weight:900;font-size:16px;background:var(--amber);transform:rotate(-12deg);
   clip-path:polygon(50% 0,61% 13%,77% 6%,79% 23%,96% 25%,88% 40%,100% 52%,86% 62%,92% 79%,75% 79%,69% 96%,55% 86%,42% 99%,35% 83%,18% 91%,18% 74%,2% 68%,12% 54%,0 40%,16% 32%,13% 15%,31% 16%,38% 1%);
-  animation:pop 2.4s ease-in-out infinite}
+  animation:pop 2.4s ease-in-out infinite;z-index:3}
 .burst b{display:block;font-size:32px;letter-spacing:-.02em;color:var(--red)}
 @keyframes pop{0%,100%{transform:rotate(-12deg) scale(1)}50%{transform:rotate(-8deg) scale(1.07)}}
 @media (prefers-reduced-motion:reduce){.burst{animation:none}}
+
+/* ===== 価格を最強に ===== */
+.num-font{font-family:"Arial Black","Helvetica Neue",Arial,"BIZ UDPGothic",sans-serif}
+.announce{position:relative;z-index:2;margin-top:64px;background:var(--red);color:#fff;text-align:center;font-weight:900;padding:10px 16px;font-size:clamp(15px,2.2vw,20px);letter-spacing:.04em;box-shadow:0 6px 20px rgba(232,51,42,.35)}
+.announce b{display:inline-block;background:var(--amber);color:var(--black);padding:0 10px;border-radius:4px;margin:0 6px}
+.announce .bn{font-family:"Arial Black","Helvetica Neue",Arial,sans-serif;font-size:1.35em;color:#fff;margin:0 2px}
+.mega{padding:0 0 22px;overflow:visible;border-top:none}
+.mega-band{display:block;background:var(--red);color:#fff;text-align:left;font-weight:900;font-size:clamp(26px,3.4vw,40px);letter-spacing:.1em;padding:12px 120px 10px 26px;border-radius:18px 18px 0 0;position:relative}
+.mega-band::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:8px;background:repeating-linear-gradient(135deg,var(--amber) 0 12px,var(--black) 12px 24px)}
+.mega-band span{color:var(--amber)}
+.mega-in{padding:22px 28px 0}
+.mega-yen{justify-content:center;margin-top:6px;flex-wrap:nowrap}
+.mega-yen .n{font-family:"Arial Black","Helvetica Neue",Arial,sans-serif;font-size:clamp(84px,9.2vw,122px);letter-spacing:-.05em;-webkit-text-stroke:3px var(--red);line-height:.95;background:linear-gradient(transparent 68%,rgba(255,180,0,.75) 68%,rgba(255,180,0,.75) 92%,transparent 92%);padding:0 6px;color:var(--red)}
+.mega-yen .u{font-size:clamp(34px,3.8vw,50px);-webkit-text-stroke:1px var(--red)}
+.mega-yen .t{font-size:16px}
+.mega-reg,.mega-note{text-align:center}
+.mega-reg strong{display:inline-block;background:var(--red);color:#fff;padding:0 10px;border-radius:6px;font-size:1.25em;margin-left:4px}
 
 /* ===== 写真の帯 ===== */
 .strip{display:grid;grid-template-columns:repeat(4,1fr);height:220px;background:var(--black)}
@@ -116,11 +133,11 @@ h2 .hl{box-shadow:inset 0 -.38em 0 rgba(255,180,0,.45)}
 .old .lb{font-weight:800;color:#b9c0c8}
 .old .pr{font-size:44px;font-weight:900;text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:4px;color:#c6ccd3}
 .arrow{font-size:46px;font-weight:900;color:var(--amber)}
-.new{background:#fff;color:var(--ink);border-radius:16px;padding:22px 36px;min-width:290px;border-top:8px solid var(--red);box-shadow:0 22px 50px rgba(0,0,0,.45)}
-.new .lb{font-weight:900;color:var(--red);letter-spacing:.06em}
-.new .pr{font-size:clamp(58px,8.5vw,84px);font-weight:900;line-height:1.1;color:var(--red);letter-spacing:-.02em}
-.new .pr small{font-size:24px}
-.save{display:inline-block;margin-top:28px;background:var(--amber);color:var(--black);font-weight:900;font-size:clamp(22px,3.6vw,32px);padding:10px 30px;border-radius:10px;transform:rotate(-2deg);box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
+.new{background:#fff;color:var(--ink);border-radius:18px;padding:0 0 20px;min-width:320px;box-shadow:0 22px 60px rgba(0,0,0,.55),0 0 0 4px var(--amber);overflow:hidden;transform:scale(1.04)}
+.new .lb{display:block;background:var(--red);color:#fff;font-weight:900;font-size:clamp(22px,3vw,30px);letter-spacing:.12em;padding:10px 20px;margin-bottom:8px}
+.new .pr{font-family:"Arial Black","Helvetica Neue",Arial,sans-serif;font-size:clamp(80px,11vw,132px);line-height:1;color:var(--red);letter-spacing:-.05em;-webkit-text-stroke:2px var(--red);padding:0 24px;background:linear-gradient(transparent 70%,rgba(255,180,0,.75) 70%,rgba(255,180,0,.75) 92%,transparent 92%);display:inline-block}
+.new .pr small{font-size:.38em;-webkit-text-stroke:0;font-family:"BIZ UDPGothic","Hiragino Sans","Meiryo",sans-serif;font-weight:900}
+.save{display:inline-block;margin-top:34px;background:var(--amber);color:var(--black);font-weight:900;font-size:clamp(22px,3.6vw,32px);padding:10px 30px;border-radius:10px;transform:rotate(-2deg);box-shadow:inset 0 -4px 0 rgba(0,0,0,.18)}
 .save b{color:var(--red)}
 .pricing .fine{margin-top:18px;font-size:14px;color:#aeb6bf}
 
@@ -159,9 +176,14 @@ h2 .hl{box-shadow:inset 0 -.38em 0 rgba(255,180,0,.45)}
 .final{position:relative;text-align:center;color:#fff;padding:100px 0;
   background:linear-gradient(180deg,rgba(13,15,18,.78),rgba(13,15,18,.9)),url("https://images.unsplash.com/photo-1786198984387-b63cdf520602?auto=format&fit=crop&w=2000&q=70") center/cover no-repeat,var(--black)}
 .final h2{color:#fff;margin-bottom:10px}
-.final .big{margin:4px 0 0;font-size:clamp(19px,3vw,26px);font-weight:900}
-.final .big b{color:var(--amber);font-size:1.6em}
-.final .small{margin:4px 0 0;color:#c9cfd6}
+.final-card{display:inline-block;margin:10px auto 0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 0 0 4px var(--amber),0 24px 60px rgba(0,0,0,.5);min-width:min(520px,100%)}
+.final-card .band{background:var(--red);color:#fff;font-weight:900;font-size:clamp(22px,3vw,30px);letter-spacing:.12em;padding:10px 20px}
+.final-card .band span{color:var(--amber)}
+.final-card .pr{font-family:"Arial Black","Helvetica Neue",Arial,sans-serif;color:var(--red);font-size:clamp(80px,11vw,132px);line-height:1;letter-spacing:-.05em;-webkit-text-stroke:2px var(--red);padding:14px 24px 0;display:inline-block;background:linear-gradient(transparent 70%,rgba(255,180,0,.75) 70%,rgba(255,180,0,.75) 90%,transparent 90%)}
+.final-card .pr small{font-size:.38em;-webkit-text-stroke:0;font-family:"BIZ UDPGothic","Hiragino Sans","Meiryo",sans-serif;font-weight:900}
+.final-card .tx{color:var(--muted);font-weight:800;padding:6px 16px 16px}
+.final-card .tx strong{background:var(--red);color:#fff;padding:0 8px;border-radius:5px}
+.final .small{margin:14px 0 0;color:#c9cfd6}
 
 footer{background:var(--black);color:#9aa3ad;font-size:13.5px;padding:26px 0;text-align:center;border-top:3px solid var(--amber)}
 footer b{color:#fff}
@@ -186,8 +208,16 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
   .nav a:not(.navcta){display:none}
   .navcta{padding:8px 12px;font-size:13px}
   .logo .name b{font-size:17px}
-  .hero{padding:104px 0 56px;background:linear-gradient(180deg,rgba(13,15,18,.78) 0%,rgba(13,15,18,.92) 60%),url("https://images.unsplash.com/photo-1727893119356-1702fe921cf9?auto=format&fit=crop&w=1000&q=70") center/cover no-repeat,var(--char)}
-  .mega{padding:26px 20px 20px}
+  .hero{padding:40px 0 56px;background:linear-gradient(180deg,rgba(13,15,18,.78) 0%,rgba(13,15,18,.92) 60%),url("https://images.unsplash.com/photo-1727893119356-1702fe921cf9?auto=format&fit=crop&w=1000&q=70") center/cover no-repeat,var(--char)}
+  .mega-band{font-size:24px;padding:12px 90px 10px 18px}
+  .mega{padding:0 0 20px}.mega-in{padding:18px 16px 0}
+  .mega-yen .n{-webkit-text-stroke:2px var(--red);font-size:clamp(56px,19vw,78px)}
+  .mega-yen{flex-wrap:wrap}.mega-yen .u{font-size:38px}.mega-yen .t{flex-basis:100%;text-align:center;margin-top:4px}
+  h1{white-space:normal}
+  .cta{white-space:normal}
+  .new{min-width:0;width:100%;transform:none}.new .pr{font-size:clamp(60px,21vw,96px);padding:0 12px}
+  .final-card .pr{font-size:clamp(60px,21vw,96px);padding:12px 12px 0}
+  .announce{margin-top:64px;font-size:14px;padding:9px 10px}
   .burst{width:98px;height:98px;font-size:12.5px;right:-8px;top:-40px}.burst b{font-size:24px}
   .cta,.hero .cta{width:100%;align-self:stretch;justify-content:center;font-size:17px;padding:16px 16px}
   .grid,.steps{grid-template-columns:1fr}
@@ -220,6 +250,8 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
   </div>
 </header>
 
+<div class="announce" role="note"><b>先着10本</b>だけ <span class="bn">19,800</span>円（税込）　通常29,800円から<b>1万円おトク</b></div>
+
 <div class="hero" id="top">
   <div class="w">
     <div class="left">
@@ -241,10 +273,12 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
 
     <div class="mega">
       <div class="burst" aria-label="通常価格より1万円おトク"><div><b>1万円</b>おトク</div></div>
-      <span class="mega-tag">先着10本 限定価格</span>
-      <div class="mega-yen"><span class="n">19,800</span><span class="u">円</span><span class="t">税込</span></div>
-      <div class="mega-reg">通常価格 <s>29,800円</s>（税込）から <strong>10,000円引き</strong></div>
-      <div class="mega-note">パソコン1台分のライセンス。11本目からは通常価格になります。</div>
+      <span class="mega-band">先着<span>10</span>本 限定価格</span>
+      <div class="mega-in">
+        <div class="mega-yen"><span class="n">19,800</span><span class="u">円</span><span class="t">税込</span></div>
+        <div class="mega-reg">通常価格 <s>29,800円</s>（税込）から <strong>10,000円引き</strong></div>
+        <div class="mega-note">パソコン1台分のライセンス。11本目からは通常価格になります。</div>
+      </div>
     </div>
   </div>
 </div>
@@ -295,7 +329,7 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
       <div class="vs">
         <div class="old"><div class="lb">通常価格</div><div class="pr">29,800円</div></div>
         <div class="arrow" aria-hidden="true">➜</div>
-        <div class="new"><div class="lb">先着10本 限定</div><div class="pr">19,800<small>円</small></div><div style="font-weight:700;color:var(--muted)">税込・パソコン1台分</div></div>
+        <div class="new"><div class="lb">先着10本 限定</div><div class="pr">19,800<small>円</small></div><div style="font-weight:800;color:var(--muted);margin-top:6px">税込・パソコン1台分</div></div>
       </div>
       <div class="save"><b>1万円</b>おトク！</div>
       <p class="fine">月額料金はかかりません。11本目からは通常価格（29,800円・税込）になります。</p>
@@ -348,8 +382,12 @@ footer .cr{margin-top:4px;font-size:12px;opacity:.7}
   <section class="final">
     <div class="w">
       <h2>まずは無料で、ぜんぶ試してください。</h2>
-      <p class="big">先着10本は <b>19,800円</b>（税込）</p>
-      <p class="small">通常 <s>29,800円</s>（税込）から 1万円おトク</p>
+      <div class="final-card">
+        <div class="band">先着<span>10</span>本 限定価格</div>
+        <div class="pr">19,800<small>円</small></div>
+        <div class="tx">税込・パソコン1台分　通常 <s>29,800円</s> から <strong>1万円おトク</strong></div>
+      </div>
+      <p class="small">11本目からは通常価格（29,800円・税込）になります。</p>
       <a class="cta" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
         無料の試用版をダウンロード（Windows）
