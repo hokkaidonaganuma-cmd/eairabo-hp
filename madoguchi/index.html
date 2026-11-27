@@ -6,60 +6,269 @@
 <title>クルマの窓口｜整備・板金工場の見積・請求ソフト</title>
 <meta name="description" content="月額なし・買い切り。町の整備・板金工場のための見積・請求ソフト「クルマの窓口」。データはパソコンの中だけに保存。">
 <style>
-:root{--bg:#f4f6f7;--panel:#fff;--ink:#17212b;--muted:#5b6876;--line:#d3dae1;--accent:#0b6e79;--accent-ink:#fff;--soft:#dcefF1;--warn:#a85b00}
-@media (prefers-color-scheme:dark){:root{--bg:#101519;--panel:#182027;--ink:#e5ecf2;--muted:#94a3b1;--line:#2d3944;--accent:#45b7c3;--accent-ink:#04252a;--soft:#16363b;--warn:#e3a04b}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;line-height:1.7}
-.w{max-width:960px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
-header{background:var(--accent);color:var(--accent-ink);padding:48px 0 40px}
-header h1{margin:0;font-size:40px;letter-spacing:.06em}header p{margin:8px 0 0;font-size:18px}
-.price{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-top:20px}
-.price b{font-size:34px}.price s{opacity:.75}.tag{background:#fff;color:#0b6e79;border-radius:6px;padding:2px 10px;font-weight:700;font-size:14px}
-.btn{display:inline-block;border-radius:10px;padding:12px 22px;font-weight:700;text-decoration:none;border:2px solid currentColor;color:inherit}
-.btn.pri{background:var(--panel);color:var(--accent);border-color:var(--panel)}
-section{padding:36px 0;border-bottom:1px solid var(--line)}h2{font-size:24px;margin:0 0 14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
-.card h3{margin:0 0 6px;font-size:17px;color:var(--accent)}
-ol,ul{padding-left:1.4em}.note{color:var(--muted);font-size:14px}
-.shops{display:flex;gap:10px;flex-wrap:wrap}.shops a{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 16px;color:var(--ink);text-decoration:none;font-weight:700}
-footer{padding:28px 0;color:var(--muted);font-size:13px}
+:root{
+  --navy:#0e1238;--navy2:#1b1f5e;--ink:#1a1d33;--muted:#5d6382;--paper:#fffaf3;--card:#ffffff;
+  --sun:#ff7a1a;--rose:#ff3d7f;--gold:#ffc83d;--mint:#2fd6b5;--sky:#4f8bff;--line:#efe4d6;
+  --grad:linear-gradient(100deg,#ff7a1a 0%,#ff3d7f 55%,#a24bff 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.w{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* ===== ヒーロー ===== */
+.hero{position:relative;overflow:hidden;color:#fff;background:
+  radial-gradient(900px 500px at 85% -10%,rgba(255,61,127,.55),transparent 60%),
+  radial-gradient(700px 480px at 0% 110%,rgba(255,122,26,.45),transparent 60%),
+  radial-gradient(600px 400px at 60% 120%,rgba(79,139,255,.35),transparent 60%),
+  linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);
+  padding:28px 0 96px}
+.hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.06) 0 2px,transparent 2px 46px);pointer-events:none}
+.stripes{position:absolute;right:-80px;top:120px;width:620px;height:260px;transform:skewX(-24deg);pointer-events:none;opacity:.9}
+.stripes i{display:block;height:14px;margin:18px 0;border-radius:8px;background:var(--grad);box-shadow:0 0 24px rgba(255,61,127,.55)}
+.stripes i:nth-child(2){width:78%;margin-left:22%;opacity:.8}
+.stripes i:nth-child(3){width:58%;margin-left:42%;opacity:.6}
+.stripes i:nth-child(4){width:38%;margin-left:62%;opacity:.4}
+.top{display:flex;justify-content:space-between;align-items:center;position:relative}
+.brand{font-weight:800;letter-spacing:.08em;font-size:14px;opacity:.9}
+.brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .inner{position:relative;margin-top:56px;max-width:640px}
+.kicker{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:700;backdrop-filter:blur(6px)}
+.kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+h1{margin:18px 0 10px;font-size:clamp(44px,8vw,76px);line-height:1.1;letter-spacing:.04em;font-weight:900}
+h1 span{background:linear-gradient(100deg,#fff 0%,#ffd9b8 40%,#ffb1cf 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 24px rgba(255,61,127,.35))}
+.lead{font-size:clamp(17px,2.4vw,21px);margin:0;opacity:.95}
+
+/* 価格カード */
+.pricebox{position:relative;margin-top:34px;display:flex;flex-wrap:wrap;gap:18px;align-items:stretch}
+.price-main{position:relative;background:#fff;color:var(--ink);border-radius:22px;padding:22px 26px 20px;min-width:270px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.price-main::before{content:"";position:absolute;inset:-3px;border-radius:25px;background:var(--grad);z-index:-1}
+.ribbon{position:absolute;top:-16px;left:20px;background:var(--grad);color:#fff;font-weight:800;font-size:14px;padding:5px 14px;border-radius:999px;box-shadow:0 6px 16px rgba(255,61,127,.45);letter-spacing:.06em}
+.yen{font-size:54px;font-weight:900;line-height:1.1;letter-spacing:.01em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.yen small{font-size:18px;color:var(--muted);-webkit-text-fill-color:var(--muted);font-weight:700;margin-left:4px}
+.reg{font-size:15px;color:var(--muted);margin-top:2px}
+.reg s{text-decoration-thickness:2px;text-decoration-color:var(--rose)}
+.price-side{display:flex;flex-direction:column;justify-content:center;gap:8px;font-size:15px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:8px 14px;font-weight:700}
+.chip::before{content:"✓";display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--mint);color:#06302a;font-size:13px;font-weight:900}
+
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:34px;background:var(--grad);color:#fff;text-decoration:none;font-weight:800;font-size:19px;padding:18px 30px;border-radius:16px;box-shadow:0 14px 34px rgba(255,61,127,.45),inset 0 1px 0 rgba(255,255,255,.35);position:relative;overflow:hidden;transition:transform .15s}
+.cta:hover{transform:translateY(-2px)}
+.cta::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite}
+@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+@media (prefers-reduced-motion:reduce){.cta::after{animation:none;display:none}}
+.cta svg{flex:none}
+.cta-note{margin:12px 0 0;font-size:14px;opacity:.85}
+
+.wave{position:absolute;left:0;right:0;bottom:-1px;height:70px;display:block}
+
+/* ===== セクション共通 ===== */
+section{padding:72px 0}
+.eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.18em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{margin:4px 0 26px;font-size:clamp(26px,4vw,36px);line-height:1.35;font-weight:900}
+h2 .u{background:linear-gradient(transparent 62%,rgba(255,200,61,.55) 62%)}
+
+/* こんな工場に */
+.pains{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:0;padding:0;list-style:none}
+.pains li{position:relative;background:var(--card);border-radius:18px;padding:22px 22px 22px 70px;box-shadow:0 8px 24px rgba(30,20,60,.07);border:1px solid var(--line);font-weight:700}
+.pains li::before{content:"";position:absolute;left:20px;top:22px;width:34px;height:34px;border-radius:10px;background:var(--grad);box-shadow:0 6px 14px rgba(255,61,127,.35)}
+.pains li::after{content:"✓";position:absolute;left:20px;top:22px;width:34px;height:34px;display:grid;place-items:center;color:#fff;font-weight:900}
+
+/* できること */
+.feat{background:linear-gradient(180deg,#fff3e6 0%,#ffeef5 100%)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.card{position:relative;background:var(--card);border-radius:20px;padding:26px 24px 22px;box-shadow:0 10px 30px rgba(60,20,60,.08);overflow:hidden;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(60,20,60,.14)}
+.card::before{content:"";position:absolute;left:0;top:0;right:0;height:5px;background:var(--c,var(--grad))}
+.num{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:14px;color:#fff;font-weight:900;font-size:18px;background:var(--c,var(--grad));margin-bottom:12px;box-shadow:0 8px 18px rgba(0,0,0,.12)}
+.card h3{margin:0 0 6px;font-size:19px}
+.card p{margin:0;color:var(--muted);font-size:15.5px}
+.c1{--c:linear-gradient(135deg,#ff7a1a,#ff3d7f)}.c2{--c:linear-gradient(135deg,#a24bff,#4f8bff)}
+.c3{--c:linear-gradient(135deg,#2fd6b5,#4f8bff)}.c4{--c:linear-gradient(135deg,#ffc83d,#ff7a1a)}
+.c5{--c:linear-gradient(135deg,#ff3d7f,#a24bff)}.c6{--c:linear-gradient(135deg,#4f8bff,#2fd6b5)}
+
+/* 安心のつくり */
+.safe{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.safe::before{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(47,214,181,.35),transparent 70%)}
+.safe h2{color:#fff}
+.safe-grid{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.safe-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:22px}
+.safe-item .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#2fd6b5,#4f8bff);margin-bottom:12px}
+.safe-item p{margin:0;opacity:.92}
+
+/* 購入の流れ */
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;list-style:none;margin:0;padding:0}
+.steps li{counter-increment:s;position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:56px 20px 20px;box-shadow:0 8px 24px rgba(30,20,60,.06)}
+.steps li::before{content:"STEP " counter(s);position:absolute;top:18px;left:20px;font-size:13px;font-weight:900;letter-spacing:.12em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.steps li::after{content:"";position:absolute;top:26px;left:86px;right:20px;height:2px;background:linear-gradient(90deg,#ffd0b0,transparent)}
+.steps b{color:var(--rose)}
+.shops-wrap{margin-top:30px;background:linear-gradient(135deg,#fff,#fff6ee);border:2px dashed #ffc6a3;border-radius:20px;padding:22px}
+.shops-wrap p{margin:0 0 12px;font-weight:800}
+.shops{display:flex;gap:12px;flex-wrap:wrap}
+.shops a{position:relative;display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:12px 22px;text-decoration:none;font-weight:800;box-shadow:4px 4px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+.shops a:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.shops a[href="#"]{opacity:.7}
+.shops a[href="#"]::after{content:"準備中";font-size:11px;font-weight:800;background:var(--gold);color:var(--ink);border-radius:6px;padding:1px 6px}
+
+/* インストール注意 */
+.install{padding-top:0}
+.caution{position:relative;background:#fffbe8;border:2px solid var(--gold);border-radius:20px;padding:24px 24px 24px 84px}
+.caution .ic{position:absolute;left:22px;top:24px;width:44px;height:44px;border-radius:50%;background:var(--gold);display:grid;place-items:center;font-weight:900;font-size:24px;color:var(--ink)}
+.caution h3{margin:0 0 6px;font-size:20px}
+.caution p{margin:0}
+.key{display:inline-block;background:var(--ink);color:#fff;border-radius:8px;padding:1px 10px;font-weight:800;margin:0 2px}
+.spec{margin-top:18px;color:var(--muted);font-size:14.5px}
+
+/* 最後のCTA */
+.final{text-align:center;color:#fff;background:
+  radial-gradient(600px 300px at 20% 0%,rgba(255,122,26,.5),transparent 70%),
+  radial-gradient(600px 300px at 80% 100%,rgba(162,75,255,.5),transparent 70%),var(--navy2)}
+.final h2{color:#fff;margin-bottom:8px}
+.final .cta{margin-top:20px}
+
+footer{background:var(--navy);color:rgba(255,255,255,.75);font-size:14px;padding:26px 0;text-align:center}
+footer b{color:#fff}
+
+/* スマホの下に固定ボタン */
+.sticky{display:none}
+@media (max-width:640px){
+  .hero{padding-bottom:84px}
+  .stripes{width:420px;right:-160px;top:90px;opacity:.55}
+  .pricebox{flex-direction:column}
+  .price-main{min-width:0}
+  .yen{font-size:44px}.yen small{font-size:15px}
+  .cta{width:100%;justify-content:center;font-size:17px;padding:17px 18px}
+  .caution{padding:72px 20px 20px}
+  .caution .ic{left:20px;top:18px}
+  .sticky{display:flex;opacity:0;pointer-events:none;transform:translateY(20px);transition:opacity .25s,transform .25s;position:fixed;left:12px;right:12px;bottom:12px;z-index:10;justify-content:center;align-items:center;gap:8px;background:var(--grad);color:#fff;text-decoration:none;font-weight:800;padding:14px;border-radius:14px;box-shadow:0 10px 28px rgba(255,61,127,.5)}
+  .sticky.show{opacity:1;pointer-events:auto;transform:none}
+  body{padding-bottom:76px}
+}
 </style>
 </head>
 <body>
-<header><div class="w">
- <h1>クルマの窓口</h1>
- <p>月額なし、買い切り。町の整備・板金工場のための見積・請求ソフト。</p>
- <div class="price"><div><span class="tag">先着10本</span><br><b>19,800円</b>（税込）</div><div>通常 <s>29,800円</s>（税込）・パソコン1台分</div></div>
- <p style="margin-top:20px"><a class="btn pri" id="dl" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">無料の試用版をダウンロード（Windows）</a></p>
- <p class="note" style="color:inherit;opacity:.85">試用版は伝票10件まで、すべての機能を試せます。</p>
-</div></header>
-<main class="w">
- <section><h2>こんな工場に</h2><ul>
-  <li>見積書や請求書を、まだ手書きやExcelで作っている</li>
-  <li>毎月払う業務ソフトは、小さな工場には高すぎる</li>
-  <li>お客様の情報を、ネット上（クラウド）に置きたくない</li></ul></section>
- <section><h2>できること</h2><div class="grid">
-  <div class="card"><h3>見積から入金まで1枚で</h3>部品・工賃（工数×時間工賃）・塗装（パネル数×単価）・法定費用を入れるだけ。消費税と非課税を分けて自動計算。</div>
-  <div class="card"><h3>書類をそのまま印刷</h3>見積書・作業指示書・納品書・請求書・領収書。インボイス登録番号入り。PDFにもできます。</div>
-  <div class="card"><h3>傷の写真を伝票に</h3>修理前・修理後の写真を付けて、書類と一緒に印刷できます。</div>
-  <div class="card"><h3>車ごとの整備の記録</h3>いつ・何km・何をしたかを一覧に。車検が近い車はホームでお知らせ。</div>
-  <div class="card"><h3>入金と売上</h3>入金の記録、未入金の一覧、今月の売上（税抜）。CSVでExcelにも。</div>
-  <div class="card"><h3>中古車の販売も</h3>在庫車の仕入値と粗利、車両本体＋諸費用の販売見積。</div>
- </div></section>
- <section><h2>安心のつくり</h2><ul>
-  <li>データはお使いのパソコンの中だけに保存。ネットにつながっていなくても使えます。</li>
-  <li>バックアップはボタン1つ。USBメモリにも保存できます。</li>
-  <li>新しい版が出たら、ソフトの中から更新できます（データはそのまま）。</li></ul></section>
- <section><h2>ご購入の流れ</h2><ol>
-  <li>試用版をインストールして試す</li>
-  <li>下の売り場のどれかでライセンスを購入</li>
-  <li>ソフトの「設定・バックアップ」に出る<b>申請コード</b>をお知らせください</li>
-  <li>そのパソコン専用のライセンスキーをお届けします（パソコン買い替え時の再発行は無料）</li></ol>
-  <div class="shops"><!-- 売り場が決まったら href を入れる --><a href="#">BOOTH</a><a href="#">Vector</a><a href="#">ココナラ</a></div></section>
- <section><h2>インストールのとき</h2>
-  <p>「WindowsによってPCが保護されました」と出たら、<b>「詳細情報」→「実行」</b>を押してください。小さな販売元のソフトに出る表示です。</p>
-  <p class="note">動作環境：Windows 10・11（64ビット）。部品価格・整備工数のデータベース、車検のOSS申請、保険会社とのデータ連携はありません。工数は自社の実績で登録して使います。</p></section>
+
+<header class="hero">
+  <div class="stripes" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="w">
+    <div class="top"><div class="brand"><b>エーアイラボ</b></div></div>
+    <div class="inner">
+      <span class="kicker"><span class="dot"></span>月額なし・買い切り</span>
+      <h1><span>クルマの窓口</span></h1>
+      <p class="lead">町の整備・板金工場のための、見積・請求ソフト。</p>
+
+      <div class="pricebox">
+        <div class="price-main">
+          <span class="ribbon">先着10本</span>
+          <div class="yen">19,800円<small>（税込）</small></div>
+          <div class="reg">通常 <s>29,800円</s>（税込）・パソコン1台分</div>
+        </div>
+        <div class="price-side">
+          <span class="chip">月額料金なし</span>
+          <span class="chip">データはパソコンの中だけ</span>
+          <span class="chip">買い替え時の再発行は無料</span>
+        </div>
+      </div>
+
+      <a class="cta" id="dl" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
+        無料の試用版をダウンロード（Windows）
+      </a>
+      <p class="cta-note">試用版は伝票10件まで、すべての機能を試せます。</p>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0,40 C240,80 480,0 720,30 C960,60 1200,10 1440,40 L1440,70 L0,70 Z" fill="#fffaf3"/></svg>
+</header>
+
+<main>
+  <section>
+    <div class="w">
+      <span class="eyebrow">FOR YOU</span>
+      <h2>こんな<span class="u">工場</span>に</h2>
+      <ul class="pains">
+        <li>見積書や請求書を、まだ手書きやExcelで作っている</li>
+        <li>毎月払う業務ソフトは、小さな工場には高すぎる</li>
+        <li>お客様の情報を、ネット上（クラウド）に置きたくない</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="feat">
+    <div class="w">
+      <span class="eyebrow">FEATURES</span>
+      <h2><span class="u">できること</span></h2>
+      <div class="grid">
+        <div class="card c1"><span class="num">01</span><h3>見積から入金まで1枚で</h3><p>部品・工賃（工数×時間工賃）・塗装（パネル数×単価）・法定費用を入れるだけ。消費税と非課税を分けて自動計算。</p></div>
+        <div class="card c2"><span class="num">02</span><h3>書類をそのまま印刷</h3><p>見積書・作業指示書・納品書・請求書・領収書。インボイス登録番号入り。PDFにもできます。</p></div>
+        <div class="card c3"><span class="num">03</span><h3>傷の写真を伝票に</h3><p>修理前・修理後の写真を付けて、書類と一緒に印刷できます。</p></div>
+        <div class="card c4"><span class="num">04</span><h3>車ごとの整備の記録</h3><p>いつ・何km・何をしたかを一覧に。車検が近い車はホームでお知らせ。</p></div>
+        <div class="card c5"><span class="num">05</span><h3>入金と売上</h3><p>入金の記録、未入金の一覧、今月の売上（税抜）。CSVでExcelにも。</p></div>
+        <div class="card c6"><span class="num">06</span><h3>中古車の販売も</h3><p>在庫車の仕入値と粗利、車両本体＋諸費用の販売見積。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="safe">
+    <div class="w">
+      <span class="eyebrow">SAFETY</span>
+      <h2>安心のつくり</h2>
+      <div class="safe-grid">
+        <div class="safe-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div><p>データはお使いのパソコンの中だけに保存。ネットにつながっていなくても使えます。</p></div>
+        <div class="safe-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h10v18H7z"/><path d="M10 7h4M10 11h4"/></svg></div><p>バックアップはボタン1つ。USBメモリにも保存できます。</p></div>
+        <div class="safe-item"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></div><p>新しい版が出たら、ソフトの中から更新できます（データはそのまま）。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="w">
+      <span class="eyebrow">HOW TO BUY</span>
+      <h2>ご購入の<span class="u">流れ</span></h2>
+      <ol class="steps">
+        <li>試用版をインストールして試す</li>
+        <li>下の売り場のどれかでライセンスを購入</li>
+        <li>ソフトの「設定・バックアップ」に出る<b>申請コード</b>をお知らせください</li>
+        <li>そのパソコン専用のライセンスキーをお届けします（パソコン買い替え時の再発行は無料）</li>
+      </ol>
+      <div class="shops-wrap">
+        <p>ライセンスの売り場</p>
+        <div class="shops"><!-- 売り場が決まったら href を入れる（入れると「準備中」の札が消えます） --><a href="#">BOOTH</a><a href="#">Vector</a><a href="#">ココナラ</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="install">
+    <div class="w">
+      <div class="caution">
+        <div class="ic" aria-hidden="true">!</div>
+        <h3>インストールのとき</h3>
+        <p>「WindowsによってPCが保護されました」と出たら、<span class="key">詳細情報</span>→<span class="key">実行</span>を押してください。小さな販売元のソフトに出る表示です。</p>
+      </div>
+      <p class="spec">動作環境：Windows 10・11（64ビット）。部品価格・整備工数のデータベース、車検のOSS申請、保険会社とのデータ連携はありません。工数は自社の実績で登録して使います。</p>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="w">
+      <h2>まずは無料で、試してみてください。</h2>
+      <p style="margin:0;opacity:.9">先着10本は <b style="color:var(--gold);font-size:1.2em">19,800円</b>（税込）。通常 29,800円（税込）。</p>
+      <a class="cta" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M6 11l6 6 6-6"/><path d="M4 21h16"/></svg>
+        無料の試用版をダウンロード（Windows）
+      </a>
+    </div>
+  </section>
 </main>
-<footer class="w">販売元：エーアイラボ</footer>
+
+<footer><div class="w">販売元：<b>エーアイラボ</b></div></footer>
+
+<a class="sticky" href="https://github.com/hokkaidonaganuma-cmd/eairabo-hp/releases/download/madoguchi-v1.6.1/KurumaMadoguchi-Setup-1.6.1.exe">無料の試用版をダウンロード</a>
+
+<script>
+(function(){var b=document.querySelector('.sticky'),h=document.getElementById('dl');
+if(!b||!h||!('IntersectionObserver' in window)){if(b)b.classList.add('show');return;}
+new IntersectionObserver(function(e){b.classList.toggle('show',!e[0].isIntersecting&&e[0].boundingClientRect.top<0);}).observe(h);})();
+</script>
 </body>
 </html>
